@@ -363,6 +363,21 @@ if has('nvim-0.5.0')
 	nnoremap <silent> <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
 	nnoremap <silent> <leader>D <cmd>lua vim.lsp.buf.implementation()<CR>
 	nnoremap <silent> <leader>k <cmd>lua vim.lsp.buf.hover()<CR>
+	nnoremap <silent> <leader>gr <cmd>call luaeval("vim.lsp.buf.references()")<CR>
+	nnoremap <silent> <leader>gs <cmd>call luaeval("vim.lsp.buf.document_symbol()")<CR>
+
+	lua <<END
+vim.lsp.callbacks['textDocument/references'] = function(_, _, result)
+	if not result then return end
+	vim.lsp.util.set_qflist(vim.lsp.util.locations_to_items(result))
+	vim.api.nvim_command('Clap quickfix')
+end
+vim.lsp.callbacks['textDocument/documentSymbol'] = function(_, _, result, _, bufnr)
+	if not result or vim.tbl_isempty(result) then return end
+	vim.lsp.util.set_qflist(vim.lsp.util.symbols_to_items(result, bufnr))
+	vim.api.nvim_command('Clap quickfix')
+end
+END
 else
 	" Using LangugeClient-neovim and Jedi
 	let g:LanguageClient_serverCommands = {
