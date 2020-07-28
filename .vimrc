@@ -14,6 +14,9 @@
 
 " Basic options [S_BASIC]:
 
+" Fix copying bug on Mac OS
+language en_US.UTF-8
+
 " Allow backspace everywhere
 set backspace=indent,eol,start
 set colorcolumn=100
@@ -62,6 +65,11 @@ let mapleader = ' '
 " Plugins [S_PLUGINS]:
 
 call plug#begin('~/.vim/plugged')
+
+if !empty(glob("$HOME/.local.vim"))
+	source $HOME/.local.vim
+endif
+
 " Dark colorscheme
 Plug 'GoldsteinE/vim-atom-dark'
 " Light colorscheme (for firenvim)
@@ -192,6 +200,9 @@ nmap <C-LeftMouse> <LeftMouse><Leader>d
 xnoremap & :s<Up><Return>
 " Diff with file on disk
 nnoremap <Leader>= :w !git diff --no-index -- % -<Return>
+
+nnoremap <Leader>n :cnext<Return>
+nnoremap <Leader>N :cprev<Return>
 
 " Lightline configuration [S_LIGHTLINE]:
 
@@ -349,6 +360,9 @@ if has('nvim-0.5.0')
 	if executable('pyls')
 		lua require'nvim_lsp'.pyls.setup{}
 	endif
+	if executable('gopls')
+		lua require'nvim_lsp'.gopls.setup{}
+	endif
 	" Enable autocompletion
 	augroup LSPOmniFunc
 		autocmd!
@@ -356,6 +370,7 @@ if has('nvim-0.5.0')
 		autocmd FileType cpp setlocal omnifunc=v:lua.vim.lsp.omnifunc
 		autocmd FileType python setlocal omnifunc=v:lua.vim.lsp.omnifunc
 		autocmd FileType rust setlocal omnifunc=v:lua.vim.lsp.omnifunc
+		autocmd FileType go setlocal omnifunc=v:lua.vim.lsp.omnifunc
 	augroup END
 	" We use NeoMake for diagnostics, so disable them in nvim-lsp
 	lua vim.lsp.callbacks['textDocument/publishDiagnostics'] = nil
