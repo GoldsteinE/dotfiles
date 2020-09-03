@@ -190,6 +190,11 @@ augroup IndentationSettings
 	autocmd FileType python set expandtab
 augroup END
 
+augroup RustFile
+	autocmd!
+	autocmd FileType rust nnoremap <buffer> <silent> <leader><Space> :RustFmt<CR>
+augroup END
+
 " Mappings [S_MAPPINGS]:
 
 " Exit insert mode by `jk`
@@ -214,6 +219,16 @@ function! LightLineCurrentFunc()
 	return ""
 endfunction
 
+if has('nvim-0.4.2') || has('patch-8.1.2114')
+	function! LightLineFileType()
+		return WebDevIconsGetFileTypeSymbol() . ' ' . &filetype
+	endfunction
+else
+	function! LightLineFileType()
+		return &filetype
+	endfunction
+endif
+
 let g:lightline = {
 	\ 'colorscheme': 'wombat',
 	\ 'active': {
@@ -222,7 +237,8 @@ let g:lightline = {
 	\  },
 	\ 'component_function': {
 	\	'gitbranch': 'fugitive#head',
-	\	'current_func': 'LightLineCurrentFunc'
+	\	'current_func': 'LightLineCurrentFunc',
+	\   'filetype': 'LightLineFileType',
 	\  }
 	\ }
 
@@ -287,6 +303,7 @@ endif
 if executable('pylint')
 	let g:neomake_python_enabled_makers += ['pylint']
 endif
+let g:neomake_rust_cargo_command = ['+nightly', 'clippy', '-Zunstable-options']
 
 " Sign column symbols
 let g:neomake_error_sign = {
@@ -486,6 +503,11 @@ let g:silicon = {
 	\ 'pad-vert': 0,
 	\ 'round-corner': v:false,
 	\ }
+
+" Startify
+function! StartifyEntryFormat()
+	return 'WebDevIconsGetFileTypeSymbol(absolute_path) . "  " . entry_path'
+endfunction
 
 " Fast :PlugUpdate
 command! UP PlugClean | PlugUpdate | qall
