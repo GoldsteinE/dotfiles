@@ -9,6 +9,7 @@ load_module() {
 	local filename="$name.$extension"
 	local dir="$HOME/.zsh/$name"
 	local filepath="$dir/$filename"
+	mkdir -p "$HOME/.zsh"
 	if type git >/dev/null && ! [ -f "$filepath" ]; then
 		echo "Plugin '$name' is not found, installing..."
 		git clone --depth=1 "https://github.com/$gh_user/$name.git" "$dir"
