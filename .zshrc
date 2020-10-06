@@ -25,6 +25,10 @@ load_module zsh-users zsh-autosuggestions zsh
 load_module zsh-users zsh-syntax-highlighting zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+if type direnv >/dev/null; then
+	eval "$(direnv hook zsh)"
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -213,4 +217,8 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     }
     zle -N zle-line-init
     zle -N zle-line-finish
+fi
+
+if [ -f "$HOME/.local.zsh" ]; then
+	source "$HOME/.local.zsh"
 fi
