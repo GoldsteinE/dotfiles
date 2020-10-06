@@ -115,7 +115,7 @@ esac
 alias colordiff=~/bin/colordiff
 
 alias reload-shell="exec /proc/self/exe --login"
-alias ls="LC_COLLATE=C gls --color=auto -hF --group-directories-first"
+alias ls="LC_COLLATE=C ls --color=auto -hF --group-directories-first"
 alias la="ls -A"
 alias ll="ls -Al"
 alias fucking=sudo
