@@ -1,5 +1,36 @@
 ## Zsh configuration file.
 
+## Loading modules.
+
+load_module() {
+	local gh_user="$1"
+	local name="$2"
+	local extension="$3"
+	local filename="$name.$extension"
+	local dir="$HOME/.zsh/$name"
+	local filepath="$dir/$filename"
+	if type git >/dev/null && ! [ -f "$filepath" ]; then
+		echo "Plugin '$name' is not found, installing..."
+		git clone --depth=1 "https://github.com/$gh_user/$name.git" "$dir"
+	fi
+	if [ -f "$filepath" ]; then
+		source "$filepath"
+	fi
+}
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+load_module romkatv powerlevel10k zsh-theme
+load_module zsh-users zsh-autosuggestions zsh
+load_module zsh-users zsh-syntax-highlighting zsh
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 ## Add local files to PATH
 PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin
 
@@ -16,7 +47,7 @@ else
 fi
 alias vim="$EDITOR"
 [ -z "$SUDO_PROMPT" ] && export SUDO_PROMPT="Enter password: "
-export SHELL=/usr/bin/zsh
+export SHELL="$(which zsh)"
 export PYTHONSTARTUP=~/.pythonrc
 export haas=/home/goldstein/bin/arcadia/haas
 export TERM="xterm-256color"
@@ -53,16 +84,6 @@ zstyle ':completion:*:processes-names' command 'ps -e -o comm='
 zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*'   force-list always
 
-## Loading modules.
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
-autoload -U zcalc
-
-## Setting prompt.
-autoload -U colors && colors
-export PROMPT="%0(?..[%{$fg[yellow]%}%?%{$reset_color%}] )%{$fg[red]%}%n%{$reset_color%}@%{$fg[cyan]%}%M%{$reset_color%} %~ [%T] %{$fg[red]%}%0(#.#.$)%{$reset_color%} "
-
 ## Copied part for git
 setopt prompt_subst
 autoload -Uz vcs_info
@@ -93,7 +114,7 @@ esac
 alias colordiff=~/bin/colordiff
 
 alias reload-shell="exec /proc/self/exe --login"
-alias ls="LC_COLLATE=C ls --color=auto -hF --group-directories-first"
+alias ls="LC_COLLATE=C gls --color=auto -hF --group-directories-first"
 alias la="ls -A"
 alias ll="ls -Al"
 alias fucking=sudo
