@@ -88,6 +88,7 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'rhysd/vim-llvm'
 Plug 'idris-hackers/idris-vim'
 Plug 'rust-lang/rust.vim'
+Plug 'lifepillar/pgsql.vim'
 " Read .editorconfig
 Plug 'editorconfig/editorconfig-vim'
 " Linters integration
@@ -452,6 +453,8 @@ if has('nvim-0.4.2') || has('patch-8.1.2114')
 	" Lines in current buffer
 	nnoremap <silent> <leader>; :Clap blines<Return>
 	nnoremap <silent> <leader>: :Clap blines ++query=<cword><Return>
+	" All buffers (useful after long go-to-definition chains)
+	nnoremap <silent> <leader>b :Clap buffers<Return>
 	let g:clap_theme = 'atom_dark'
 	let g:clap_layout = { 'relative': 'editor' }
 	let g:clap_selected_sign = {
