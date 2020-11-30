@@ -130,7 +130,7 @@ if has('timers')
 	Plug 'prabirshrestha/asyncomplete.vim'
 	Plug 'yami-beta/asyncomplete-omni.vim'
 	Plug 'prabirshrestha/asyncomplete-file.vim'
-	Plug 'prabirshrestha/asyncomplete-buffer.vim'
+	Plug 'thecontinium/asyncomplete-buffer.vim'
 endif
 if has('nvim-0.5.0')
 	" Internal NeoVim LSP configuration helper
