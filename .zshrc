@@ -2,6 +2,16 @@
 
 ## Loading modules.
 
+stty -ixon  # Disable ^S
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+POWERLEVEL9K_INSTANT_PROMPT=quiet
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 load_module() {
 	local gh_user="$1"
 	local name="$2"
@@ -25,11 +35,8 @@ load_module zsh-users zsh-autosuggestions zsh
 load_module zsh-users zsh-syntax-highlighting zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if type direnv >/dev/null; then
+	eval "$(direnv hook zsh)"
 fi
 
 ## Add local files to PATH
@@ -52,7 +59,6 @@ export SHELL="$(which zsh)"
 export PYTHONSTARTUP=~/.pythonrc
 export haas=/home/goldstein/bin/arcadia/haas
 export TERM="xterm-256color"
-stty -ixon  # Disable ^S
 
 ## Enabling history.
 export SAVEHIST=1000
@@ -213,4 +219,15 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     }
     zle -N zle-line-init
     zle -N zle-line-finish
+fi
+
+ctrl-z-fg() {
+    fg
+}
+zle -N ctrl-z-fg
+bindkey '^Z' ctrl-z-fg
+
+## Source local config
+if [ -f "$HOME/.local.zsh" ]; then
+	source "$HOME/.local.zsh"
 fi
