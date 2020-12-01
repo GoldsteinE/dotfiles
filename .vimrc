@@ -12,7 +12,11 @@
 " 11. Vimrc editing helpers [S_SELF]
 
 " Fix copying bug on Mac OS
-language en_US.UTF-8
+try
+	language en_US.UTF-8
+catch
+	" Locale probably isn't installed
+endtry
 
 " Allow backspace everywhere
 set backspace=indent,eol,start
@@ -91,6 +95,7 @@ Plug 'rhysd/vim-llvm'
 Plug 'idris-hackers/idris-vim'
 Plug 'rust-lang/rust.vim'
 Plug 'lifepillar/pgsql.vim'
+Plug 'lervag/vimtex'
 " Read .editorconfig
 Plug 'editorconfig/editorconfig-vim'
 " Linters integration
@@ -126,15 +131,13 @@ endif
 " Calculate startup time
 Plug 'tweekmonster/startuptime.vim'
 " Autocompletion
-if has('timers')
-	Plug 'prabirshrestha/asyncomplete.vim'
-	Plug 'yami-beta/asyncomplete-omni.vim'
-	Plug 'prabirshrestha/asyncomplete-file.vim'
-	Plug 'thecontinium/asyncomplete-buffer.vim'
-endif
 if has('nvim-0.5.0')
 	" Internal NeoVim LSP configuration helper
 	Plug 'neovim/nvim-lspconfig'
+	Plug 'neovim/nvim-lsp'
+	Plug 'nvim-lua/completion-nvim'
+	Plug 'hrsh7th/vim-vsnip'
+	Plug 'hrsh7th/vim-vsnip-integ'
 endif
 " Screenshoting code
 if executable('silicon')
@@ -299,45 +302,6 @@ call neomake#configure#automake('nrwi', 200)
 " LSP & similar things [S_LSP]:
 
 " Autocompletion
-if has('timers')
-	call asyncomplete#register_source(
-		\ asyncomplete#sources#omni#get_source_options({
-		\ 	'name': 'omni',
-		\ 	'whitelist': ['*'],
-		\ 	'priority': 100,
-		\ 	'completor': function('asyncomplete#sources#omni#completor')
-		\ })
-	\ )
-	call asyncomplete#register_source(
-		\ asyncomplete#sources#file#get_source_options({
-		\ 	'name': 'file',
-		\ 	'whitelist': ['*'],
-		\ 	'priority': 10,
-		\ 	'completor': function('asyncomplete#sources#file#completor')
-		\ })
-	\ )
-	call asyncomplete#register_source(
-		\ asyncomplete#sources#buffer#get_source_options({
-		\ 	'name': 'buffer',
-		\ 	'whitelist': ['*'],
-		\ 	'priority': 1,
-		\ 	'completor': function('asyncomplete#sources#buffer#completor')
-		\ })
-	\ )
-
-	let g:asyncomplete_auto_popup = 0
-	function! s:check_back_space() abort
-		let col = col('.') - 1
-		return !col || getline('.')[col - 1]  =~ '\s'
-	endfunction
-
-	inoremap <silent><expr> <TAB>
-	  \ pumvisible() ? "\<C-n>" :
-	  \ <SID>check_back_space() ? "\<TAB>" :
-	  \ asyncomplete#force_refresh()
-	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-endif
-
 if has('nvim-0.5.0')
 	" Using shiny new nvim-lspconfig
 	lua require'configure_lsp'
@@ -352,6 +316,11 @@ if has('nvim-0.5.0')
 		autocmd FileType go setlocal omnifunc=v:lua.vim.lsp.omnifunc
 	augroup END
 	" We use NeoMake for diagnostics, so disable them in nvim-lspconfig
+	imap <silent> <Tab> <Plug>(completion_smart_tab)
+	imap <silent> <S-Tab> <Plug>(completion_smart_s_tab)
+	imap <C-l> <Plug>(vsnip-jump-next)
+	imap <C-h> <Plug>(vsnip-jump-prev)
+	" We use NeoMake for diagnostics, so disable them in nvim-lsp
 	lua vim.lsp.callbacks['textDocument/publishDiagnostics'] = nil
 	nnoremap <silent> <leader>r <cmd>lua vim.lsp.buf.rename()<CR>
 	nnoremap <silent> <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
@@ -373,7 +342,7 @@ if has('nvim-0.4.2') || has('patch-8.1.2114')
 	" Lines in current buffer
 	nnoremap <silent> <leader>; :Clap blines<Return>
 	nnoremap <silent> <leader>: :Clap blines ++query=<cword><Return>
-	" All buffers (useful after long go-to-definition chains)
+	" Buffers (useful after long go-to-definition chains)
 	nnoremap <silent> <leader>b :Clap buffers<Return>
 	let g:clap_theme = 'atom_dark'
 	let g:clap_layout = { 'relative': 'editor' }
@@ -424,6 +393,9 @@ let g:silicon = {
 function! StartifyEntryFormat()
 	return 'WebDevIconsGetFileTypeSymbol(absolute_path) . "  " . entry_path'
 endfunction
+
+" Vimtex
+let g:tex_flavor = 'latex'
 
 " Fast :PlugUpdate
 command! UP PlugClean | PlugUpdate | qall
