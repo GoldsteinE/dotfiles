@@ -20,17 +20,10 @@ main() {
 	require git
 	require curl
 
-	tarball="$(mktemp --suffix=.tar.gz)"
-	# shellcheck disable=SC2064
-	trap "rm '$tarball'" EXIT INT TERM
-
 	echo "Downloading binaries..." >&2
-	curl "https://github.com/GoldsteinE/binaries/release/tag/$BINARIES_VERSION" -o "$tarball"
-
-	echo "Unpacking binaries..." >&2
 	mkdir -p "$HOME/.binaries"
 	cd "$HOME/.binaries"
-	tar xzf "$tarball"
+	curl -fL "https://github.com/GoldsteinE/binaries/release/tag/$BINARIES_VERSION" | tar xzf -
 	export PATH="$PATH:$HOME/.binaries/bin"	
 
 	echo "Downloading dotfiles..." >&2
