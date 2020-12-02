@@ -23,7 +23,7 @@ main() {
 	echo "Downloading binaries..." >&2
 	mkdir -p "$HOME/.binaries"
 	cd "$HOME/.binaries"
-	curl -fL "https://github.com/GoldsteinE/binaries/release/tag/$BINARIES_VERSION" | tar xzf -
+	curl -fL "https://github.com/GoldsteinE/binaries/releases/downloads/$BINARIES_VERSION/binaries.tar.gz" | tar xzf -
 	export PATH="$PATH:$HOME/.binaries/bin"	
 
 	echo "Downloading dotfiles..." >&2
