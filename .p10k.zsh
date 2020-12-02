@@ -35,7 +35,7 @@
     dir                     # current directory
     vcs                     # git status
     time                    # current time
-	example
+    # example
     prompt_char             # prompt symbol
   )
 
