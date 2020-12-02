@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-BINARIES_VERSION='0.1.1'
+BINARIES_VERSION='v0.2'
 
 die() {
 	echo "$@" >&2
@@ -19,11 +19,13 @@ main() {
 	require zsh
 	require git
 	require curl
+	require tar
+	require xz
 
 	echo "Downloading binaries..." >&2
 	mkdir -p "$HOME/.binaries"
 	cd "$HOME/.binaries"
-	curl -fL "https://github.com/GoldsteinE/binaries/releases/download/$BINARIES_VERSION/binaries.tar.gz" | tar xzf -
+	curl -fL "https://github.com/GoldsteinE/binaries/releases/download/$BINARIES_VERSION/binaries.tar.xz" | tar xJf -
 	export PATH="$PATH:$HOME/.binaries/bin"	
 
 	echo "Adding binaries to PATH..." >&2
