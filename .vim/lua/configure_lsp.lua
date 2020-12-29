@@ -3,7 +3,19 @@ local lspconfig = require 'lspconfig'
 local executable = vim.fn.executable
 
 if executable('rust-analyzer') then
-	lspconfig.rust_analyzer.setup{}
+	lspconfig.rust_analyzer.setup{
+		settings = {
+			["rust-analyzer"] = {
+				completion = {
+					enableAutoimportCompletions = true
+				},
+				assist = {
+					importMergeBehaviour = "full",
+					importPrefix = "by_crate"
+				}
+			}
+		}
+	}
 elseif executable('rls') then
 	lspconfig.rls.setup{}
 end
