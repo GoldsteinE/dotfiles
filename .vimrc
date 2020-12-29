@@ -38,6 +38,8 @@ endif
 set hidden
 " Enable incremental search
 set incsearch
+" Preview s/// changes
+set inccommand=nosplit
 " Ignore case if search string is all lowercase
 set ignorecase smartcase
 " Show statusline
@@ -96,6 +98,7 @@ Plug 'idris-hackers/idris-vim'
 Plug 'rust-lang/rust.vim'
 Plug 'lifepillar/pgsql.vim'
 Plug 'lervag/vimtex'
+Plug 'ziglang/zig.vim'
 " Read .editorconfig
 Plug 'editorconfig/editorconfig-vim'
 " Linters integration
@@ -112,9 +115,7 @@ Plug 'michaeljsmith/vim-indent-object'
 " Filetype icons
 Plug 'ryanoasis/vim-devicons'
 " Fuzzy finder
-if has('nvim-0.4.2') || has('patch-8.1.2114')
-	Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-endif
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 " Sign column
 Plug 'airblade/vim-gitgutter'
 Plug 'kshenoy/vim-signature'
@@ -130,7 +131,6 @@ if !exists('g:notepad_mode')
 endif
 " Calculate startup time
 Plug 'tweekmonster/startuptime.vim'
-" Autocompletion
 if has('nvim-0.5.0')
 	" Internal NeoVim LSP configuration helper
 	Plug 'neovim/nvim-lspconfig'
@@ -138,6 +138,9 @@ if has('nvim-0.5.0')
 	Plug 'nvim-lua/completion-nvim'
 	Plug 'hrsh7th/vim-vsnip'
 	Plug 'hrsh7th/vim-vsnip-integ'
+	" TreeSitter-based syntax highlight & text objects
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+	Plug 'nvim-treesitter/playground'
 endif
 " Screenshoting code
 if executable('silicon')
@@ -181,6 +184,12 @@ augroup END
 inoremap jk <Esc>
 " Make & work in visual mode
 xnoremap & :s<Up><Return>
+" Repeat the last macro
+nnoremap Q @@
+" Make Y work sensibly
+nnoremap Y y$
+" Repurpose `s` for deletion without clobbering clipboard
+nnoremap s "_d
 " Diff with the file on disk
 nnoremap <Leader>= :w !git diff --no-index -- % -<Return>
 " Move to next/previous error
@@ -359,6 +368,29 @@ if has('nvim-0.4.2') || has('patch-8.1.2114')
 endif
 
 " Miscellanious plugin settings [S_MISC]:
+
+" Enable TreeSitter
+if has('nvim-0.5.0')
+lua <<END
+require 'nvim-treesitter.configs'.setup {
+	ensure_installed = { "rust", "c", "cpp", "python", "toml", "query" },
+	highlight = {
+		enable = true,
+		custom_captures = {
+			["include"] = "Keyword",
+			["attribute_item.meta_item.identifier"] = "PreProc"
+		}
+	},
+	indent = {
+		enable = true
+	},
+	playground = {
+		enable = true
+	}
+}
+END
+endif
+
 
 " Illuminate
 let g:Illuminate_delay = 50
