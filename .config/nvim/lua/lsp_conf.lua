@@ -28,21 +28,6 @@ if executable('gopls') then
 	lspconfig.gopls.setup{}
 end
 
--- Make nvim-lsp work with Clap
-vim.lsp.callbacks['textDocument/references'] = function(_, _, result)
-	if not result then return end
-
-	vim.lsp.util.set_qflist(vim.lsp.util.locations_to_items(result))
-	vim.cmd [[ Clap quickfix ]]
-end
-
-vim.lsp.callbacks['textDocument/documentSymbol'] = function(_, _, result, _, bufnr)
-	if not result or vim.tbl_isempty(result) then return end
-
-	vim.lsp.util.set_qflist(vim.lsp.util.symbols_to_items(result, bufnr))
-	vim.cmd [[ Clap quickfix ]]
-end
-
 -- We use NeoMake for diagnostics, so disable them in nvim-lsp
 vim.lsp.callbacks['textDocument/publishDiagnostics'] = nil
 
@@ -59,5 +44,3 @@ vimp.nnoremap({'silent'}, '<leader>r', vim.lsp.buf.rename)
 vimp.nnoremap({'silent'}, '<leader>d', vim.lsp.buf.definition)
 vimp.nnoremap({'silent'}, '<leader>D', vim.lsp.buf.implementation)
 vimp.nnoremap({'silent'}, '<leader>k', vim.lsp.buf.hover)
-vimp.nnoremap({'silent'}, '<leader>gr', vim.lsp.buf.references)
-vimp.nnoremap({'silent'}, '<leader>gs', vim.lsp.buf.document_symbol)

@@ -15,8 +15,8 @@ require 'lightline_conf'
 require 'lsp_conf'
 -- Neomake configuration
 require 'neomake_conf'
--- vim-clap configuration
-require 'clap_conf'
+-- telescope.nvim configuration
+require 'telescope_conf'
 -- TreeSitter configuration
 if vim.g.treesitter_enabled then
 	require 'treesitter_conf'

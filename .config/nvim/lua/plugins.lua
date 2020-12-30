@@ -46,7 +46,14 @@ require('packer').startup(function()
 	-- Filetype icons
 	use 'ryanoasis/vim-devicons'
 	-- Fuzzy finder
-	use {'liuchengxu/vim-clap', run = ':Clap install-binary!'}
+	use {
+		'nvim-telescope/telescope.nvim',
+		requires = {
+			{'nvim-lua/popup.nvim'},
+			{'nvim-lua/plenary.nvim'},
+			{'kyazdani42/nvim-web-devicons'}
+		}
+	}
 	-- Sign column
 	use 'airblade/vim-gitgutter'
 	use 'kshenoy/vim-signature'
