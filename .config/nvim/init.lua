@@ -1,3 +1,8 @@
+-- Helpers for other config parts
+function executable(command)
+	return vim.fn.executable(command) ~= 0
+end
+
 -- Basic options
 require 'basic_options'
 -- Plugins

@@ -1,5 +1,5 @@
 local lspconfig = require 'lspconfig'
-if vim.fn.executable('rust-analyzer') then
+if executable('rust-analyzer') then
 	lspconfig.rust_analyzer.setup{
 		settings = {
 			["rust-analyzer"] = {
@@ -13,19 +13,19 @@ if vim.fn.executable('rust-analyzer') then
 			}
 		}
 	}
-elseif vim.fn.executable('rls') then
+elseif executable('rls') then
 	lspconfig.rls.setup{}
 end
 
-if vim.fn.executable('clangd') then
+if executable('clangd') then
 	lspconfig.clangd.setup{}
 end
 
-if vim.fn.executable('pyls') then
+if executable('pyls') then
 	lspconfig.pyls.setup{}
 end
 
-if vim.fn.executable('gopls') then
+if executable('gopls') then
 	lspconfig.gopls.setup{}
 end
 

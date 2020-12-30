@@ -18,7 +18,7 @@ function check_neomake_skip()
 	local ds = vim.fn['neomake#config#get_with_source'](
 		'disabled', 0
 	)
-	if ds[1] and ds[2] == 'buffer' then
+	if ds[1] ~= 0 and ds[2] == 'buffer' then
 		vim.cmd [[ silent NeomakeEnableBuffer ]]
 		vim.cmd [[ Neomake ]]
 	end
@@ -42,13 +42,13 @@ vim.g.neomake_highlight_columns = 0
 vim.g.neomake_shellcheck_args = {'-fgcc'}
 do
 	local python_makers = {'python'}
-	if vim.fn.executable('flake8') then
+	if executable('flake8') then
 		table.insert(python_makers, 'flake8')
 	end
-	if vim.fn.executable('mypy') then
+	if executable('mypy') then
 		table.insert(python_makers, 'mypy')
 	end
-	if vim.fn.executable('pylint') then
+	if executable('pylint') then
 		table.insert(python_makers, 'pylint')
 	end
 	vim.g.neomake_python_enabled_makers = python_makers

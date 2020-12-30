@@ -55,7 +55,7 @@ setopt('o', 'title', true)
 -- Enable undo persistence
 setopt('bo', 'undofile', true)
 -- Enable system clipboard integration
-if vim.fn.has('clipboard') then
+if vim.fn.has('clipboard') ~= 0 then
 	setopt('o', 'clipboard', 'unnamedplus')
 end
 -- Enable syntax highlighting

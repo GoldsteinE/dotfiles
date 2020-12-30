@@ -69,14 +69,14 @@ require('packer').startup(function()
 	use 'nvim-lua/completion-nvim'
 	use 'hrsh7th/vim-vsnip'
 	use 'hrsh7th/vim-vsnip-integ'
-	if vim.fn.executable('g++') or vim.fn.executable('clang++') then
+	if executable('g++') or executable('clang++') then
 		vim.g.treesitter_enabled = true
 		-- TreeSitter-based syntax highlighting & text objects
 		use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 		use 'nvim-treesitter/playground'
 	end
 	-- Screenshoting code
-	if vim.fn.executable('silicon') then
+	if executable('silicon') then
 		use 'segeljakt/vim-silicon'
 	end
 end)
