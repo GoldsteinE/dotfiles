@@ -13,7 +13,9 @@ require 'neomake_conf'
 -- vim-clap configuration
 require 'clap_conf'
 -- TreeSitter configuration
-require 'treesitter_conf'
+if vim.g.treesitter_enabled then
+	require 'treesitter_conf'
+end
 
 -- Mappings:
 local vimp = require('vimp')
