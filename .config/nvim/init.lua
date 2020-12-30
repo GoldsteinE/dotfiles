@@ -80,9 +80,6 @@ function! StartifyEntryFormat()
 endfunction
 ]]
 
--- Fast update
-vim.cmd [[ command! UP PackerCompile | PackerSync | qall ]]
-
 -- init.lua editing helpers (former S_SELF):
 vim.cmd [[ augroup S_SELF ]]
 vim.cmd [[ autocmd! BufReadPre,FileReadPre init.lua set path+=~/.config/nvim/lua ]]
