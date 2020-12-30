@@ -65,16 +65,6 @@ vim.cmd [[ filetype plugin indent on ]]
 -- Tell NeoVim that <Leader> is space
 vim.g.mapleader = ' '
 
--- Set colorscheme
-if vim.g.notepad_mode then
-	-- We have to set `background=light` for `one` manually...
-	setopt('o', 'background', 'light')
-	vim.cmd [[ colorscheme one ]]
-else
-	-- ..but `atom-dark` sets it for us
-	vim.cmd [[ colorscheme atom-dark ]]
-end
-
 -- Enable search highlight while in incsearch and disable it afterwards
 vim.cmd [[ augroup VimIncsearchHl ]]
 vim.cmd [[ autocmd! ]]
