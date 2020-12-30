@@ -2,6 +2,8 @@
 require 'basic_options'
 -- Plugins
 require 'plugins'
+-- Set colorscheme
+require 'colorscheme'
 -- Lightline configuration
 require 'lightline_conf'
 -- LSP & similar things
