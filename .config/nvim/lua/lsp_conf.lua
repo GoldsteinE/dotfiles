@@ -1,4 +1,5 @@
 local lspconfig = require 'lspconfig'
+
 if executable('rust-analyzer') then
 	lspconfig.rust_analyzer.setup{
 		settings = {
@@ -13,8 +14,6 @@ if executable('rust-analyzer') then
 			}
 		}
 	}
-elseif executable('rls') then
-	lspconfig.rls.setup{}
 end
 
 if executable('clangd') then
