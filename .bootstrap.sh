@@ -29,13 +29,14 @@ main() {
 	export PATH="$PATH:$HOME/.binaries/bin"	
 
 	echo "Adding binaries to PATH..." >&2
+	# shellcheck disable=SC2016
 	echo 'export PATH="$PATH:$HOME/.binaries/bin"' >> ~/.zshenv
 
 	echo "Downloading dotfiles..." >&2
 	yadm clone 'git@github.com:GoldsteinE/dotfiles.git'
 
 	echo "Ensuring that shada dir exists..." >&2
-	mkdir -p "$HOME/.config/nvim/shada"
+	mkdir -p "$HOME/.local/share/nvim/shada"
 
 	echo "Ready! Feel free to 'exec zsh' now"
 }
