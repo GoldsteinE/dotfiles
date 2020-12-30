@@ -47,6 +47,7 @@ fpath=( ~/.zcompl "${fpath[@]}" )
 
 ## Variables by default
 [ -z "$PAGER" ] && export PAGER=less
+[ -z "$MANPAGER" ] && export MANPAGER='nvim +Man!'
 if command -v nvim >/dev/null 2>&1; then
 	export EDITOR=nvim
 else
@@ -130,7 +131,6 @@ alias pacman="pacman --color=auto"
 alias less="less -M"
 alias fuck='sudo $(history -1 | sed "s/^\s*[0-9]*\s*//" -)'
 alias RM='shred -fzun 7'
-alias u='$({ cat ~/.zhistory; history 0 | cut -d" " -f6- } | fzf)'
 
 ## Git aliases
 alias ga='git add'
