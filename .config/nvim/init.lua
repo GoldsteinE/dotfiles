@@ -48,6 +48,25 @@ vim.g.Illuminate_ftHighlightGroups = {
 	}
 }
 
+-- nvim-luadev
+function register_luadev_mappings()
+	vimp.add_buffer_maps(function()
+		vimp.nmap({'silent'}, '<Leader>ll', ':Luadev<CR>')
+		vimp.nmap('<Leader>lr', '<Plug>(Luadev-RunLine)')
+		vimp.xmap('<Leader>lr', '<Plug>(Luadev-Run)')
+		vimp.xmap('<Leader>lw', '<Plug>(Luadev-RunWord)')
+	end)
+end
+
+-- neoterm
+vimp.nmap('<Leader>s', '<Plug>(neoterm-repl-send)')
+vimp.xmap('<Leader>s', '<Plug>(neoterm-repl-send)')
+
+vim.cmd [[ augroup LuaDevMaps ]]
+vim.cmd [[ autocmd! ]]
+vim.cmd [[ autocmd FileType lua lua register_luadev_mappings() ]]
+vim.cmd [[ augroup END ]]
+
 -- Emmet
 vim.g.user_emmet_expandabbr_key = '<C-y>y'
 

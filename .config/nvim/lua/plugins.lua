@@ -15,6 +15,8 @@ require('packer').startup(function()
 	use {'wbthomason/packer.nvim', opt = true}
 	-- Lua mappings helper
 	use 'svermeulen/vimpeccable'
+	-- Lua plugins writing helper
+	use 'bfredl/nvim-luadev'
 	-- Dark colorscheme
 	use 'GoldsteinE/vim-atom-dark'
 	-- Light colorscheme (for notepad mode)
@@ -30,6 +32,7 @@ require('packer').startup(function()
 	use 'lifepillar/pgsql.vim'
 	use 'lervag/vimtex'
 	use 'ziglang/zig.vim'
+	use {'zetzit/vim', as = 'zz.vim'}
 	-- Read .editorconfig
 	use 'editorconfig/editorconfig-vim'
 	-- Linters integration
@@ -54,6 +57,8 @@ require('packer').startup(function()
 			{'kyazdani42/nvim-web-devicons'}
 		}
 	}
+	-- Terminal helper
+	use 'kassio/neoterm'
 	-- Sign column
 	use 'airblade/vim-gitgutter'
 	use 'kshenoy/vim-signature'
@@ -71,7 +76,6 @@ require('packer').startup(function()
 	use 'tweekmonster/startuptime.vim'
 	-- Internal NeoVim LSP configuration helper
 	use 'neovim/nvim-lspconfig'
-	use 'neovim/nvim-lsp'
 	-- Completion engine
 	use 'nvim-lua/completion-nvim'
 	use 'hrsh7th/vim-vsnip'
