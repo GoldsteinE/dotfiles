@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-BINARIES_VERSION='v0.3'
+BINARIES_VERSION='v0.4'
 
 die() {
 	echo "$@" >&2
