@@ -28,6 +28,7 @@ require('packer').startup(function()
 	use 'ekalinin/Dockerfile.vim'
 	use 'rhysd/vim-llvm'
 	use 'idris-hackers/idris-vim'
+	use 'elixir-editors/vim-elixir'
 	use 'rust-lang/rust.vim'
 	use 'lifepillar/pgsql.vim'
 	use 'lervag/vimtex'

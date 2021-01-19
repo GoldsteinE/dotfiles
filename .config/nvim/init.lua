@@ -59,8 +59,11 @@ function register_luadev_mappings()
 end
 
 -- neoterm
+vimp.inoremap({'silent'}, '<C-s>', '<C-o>:TREPLSendLine<CR>')
+vimp.nmap('<C-s>', '<Plug>(neoterm-repl-send-line)')
 vimp.nmap('<Leader>s', '<Plug>(neoterm-repl-send)')
 vimp.xmap('<Leader>s', '<Plug>(neoterm-repl-send)')
+vimp.xmap('<C-s>', '<Plug>(neoterm-repl-send)')
 
 vim.cmd [[ augroup LuaDevMaps ]]
 vim.cmd [[ autocmd! ]]
