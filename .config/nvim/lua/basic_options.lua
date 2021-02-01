@@ -17,7 +17,7 @@ setopt('o', 'backspace', 'indent,eol,start')
 -- Show 100 columns width limit
 setopt('wo', 'colorcolumn', '100')
 -- Show tab completion window
-setopt('o', 'completeopt', 'menuone,noinsert,noselect,longest')
+setopt('o', 'completeopt', 'menuone,noinsert,noselect')
 -- Invisible split separators
 setopt('wo', 'fillchars', 'vert: ')
 -- Explicit folding

@@ -46,7 +46,7 @@ require('packer').startup(function()
 	-- Typing helpers
 	use 'tpope/vim-surround'
 	use 'tpope/vim-repeat'
-	use 'michaeljsmith/vim-indent-object'
+	use 'b3nj5m1n/kommentary'
 	-- Filetype icons
 	use 'ryanoasis/vim-devicons'
 	-- Fuzzy finder
@@ -78,9 +78,7 @@ require('packer').startup(function()
 	-- Internal NeoVim LSP configuration helper
 	use 'neovim/nvim-lspconfig'
 	-- Completion engine
-	use 'nvim-lua/completion-nvim'
-	use 'hrsh7th/vim-vsnip'
-	use 'hrsh7th/vim-vsnip-integ'
+	use 'hrsh7th/nvim-compe'
 	if executable('g++') or executable('clang++') then
 		vim.g.treesitter_enabled = true
 		-- TreeSitter-based syntax highlighting & text objects

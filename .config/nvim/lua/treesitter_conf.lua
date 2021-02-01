@@ -7,10 +7,6 @@ require 'nvim-treesitter.configs'.setup {
 			["attribute_item.meta_item.identifier"] = "PreProc"
 		}
 	},
-	indent = {
-		enable = true,
-		disable = {'python'}
-	},
 	playground = {
 		enable = true
 	}

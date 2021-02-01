@@ -13,6 +13,8 @@ require 'colorscheme'
 require 'lightline_conf'
 -- LSP & similar things
 require 'lsp_conf'
+-- Completion
+require 'compe_conf'
 -- Neomake configuration
 require 'neomake_conf'
 -- telescope.nvim configuration

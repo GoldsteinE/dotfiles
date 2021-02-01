@@ -33,12 +33,6 @@ vim.lsp.callbacks['textDocument/publishDiagnostics'] = nil
 
 local vimp = require 'vimp'
 
--- Configure tab completion
-vimp.imap({'silent'}, '<Tab>', '<Plug>(completion_smart_tab)')
-vimp.imap({'silent'}, '<S-Tab>', '<Plug>(completion_smart_s_tab)')
-vimp.imap('<C-l>', '<Plug>(vsnip-jump-next)')
-vimp.imap('<C-h>', '<Plug>(vsnip-jump-prev)')
-
 -- And some keybindings
 vimp.nnoremap({'silent'}, '<leader>r', vim.lsp.buf.rename)
 vimp.nnoremap({'silent'}, '<leader>d', vim.lsp.buf.definition)
