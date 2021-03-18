@@ -50,6 +50,16 @@ fpath=( ~/.zcompl "${fpath[@]}" )
 [ -z "$MANPAGER" ] && export MANPAGER='nvim +Man!'
 if command -v nvim >/dev/null 2>&1; then
 	export EDITOR=nvim
+
+    if command -v nvr >/dev/null 2>&1; then
+        function nvim() {
+            if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+                nvr "$@"
+            else
+                command nvim "$@"
+            fi
+        }
+    fi
 else
 	command -v nvim
 	export EDITOR=vim
