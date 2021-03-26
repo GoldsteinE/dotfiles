@@ -1,4 +1,3 @@
-local vimp = require 'vimp'
 local builtin = require 'telescope.builtin'
 local actions = require 'telescope.actions'
 local previewers = require 'telescope.previewers'
@@ -17,7 +16,8 @@ require('telescope').setup {
 	}
 }
 
--- Mappings
+local vimp = require('vimp')
+
 vimp.nnoremap('<leader>f', builtin.find_files)
 -- Not `g` because of ergonomics; `l` means `lines (in all files)`
 vimp.nnoremap('<leader>l', builtin.live_grep)

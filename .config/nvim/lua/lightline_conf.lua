@@ -26,7 +26,3 @@ vim.g.lightline = {
 		filetype = '%{v:lua.lightline_filetype()}',
 	},
 }
-
-if vim.g.notepad_mode then
-	vim.g.lightline.colorscheme = 'ayu_light'
-end

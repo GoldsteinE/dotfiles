@@ -24,10 +24,8 @@ setopt('wo', 'fillchars', 'vert: ')
 setopt('wo', 'foldmethod', 'marker')
 -- Enable RGB colors
 setopt('o', 'termguicolors', true)
--- Disable |-like cursor if not in notepad mode
-if not vim.g.notepad_mode then
-	setopt('o', 'guicursor', '')
-end
+-- Disable |-like cursor
+setopt('o', 'guicursor', '')
 -- Hide abandoned buffers
 setopt('o', 'hidden', true)
 -- Preview s/// changes
