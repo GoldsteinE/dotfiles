@@ -58,8 +58,6 @@ setopt('bo', 'undofile', true)
 if vim.fn.has('clipboard') ~= 0 then
 	setopt('o', 'clipboard', 'unnamedplus')
 end
--- Enable syntax highlighting
-vim.cmd [[ syntax on ]]
 -- Enable filetype handling & filetype-based indentation
 vim.cmd [[ filetype plugin indent on ]]
 -- Tell NeoVim that <Leader> is space

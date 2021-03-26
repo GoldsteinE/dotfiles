@@ -29,7 +29,7 @@ if executable('gopls') then
 end
 
 -- We use NeoMake for diagnostics, so disable them in nvim-lsp
-vim.lsp.callbacks['textDocument/publishDiagnostics'] = nil
+vim.lsp.handlers['textDocument/publishDiagnostics'] = function() end
 
 local vimp = require 'vimp'
 
