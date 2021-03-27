@@ -63,7 +63,6 @@ require('packer').startup(function()
 	-- Typing helpers
 	use 'tpope/vim-surround'
 	use 'tpope/vim-repeat'
-	use 'b3nj5m1n/kommentary'
 	-- Filetype icons
 	use 'ryanoasis/vim-devicons'
 	-- Fuzzy finder
@@ -78,7 +77,13 @@ require('packer').startup(function()
 		after = 'vimpeccable',
 	}
 	-- Terminal helper
-	use 'kassio/neoterm'
+	use {
+		'kassio/neoterm',
+		config = function()
+			vim.g.neoterm_default_mod = 'below'
+			vim.g.neoterm_autoinsert = 1
+		end
+	}
 	-- Sign column
 	use 'airblade/vim-gitgutter'
 	use {

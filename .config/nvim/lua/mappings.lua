@@ -2,6 +2,8 @@ local vimp = require('vimp')
 
 -- Exit insert mode with `jk`
 vimp.inoremap('jk', '<Esc>')
+-- Do the same in terminal mode
+vimp.tnoremap('jk', '<C-\\><C-N>')
 -- Make & work in visual mode
 vimp.xnoremap('&', ':s<Up><Return>')
 -- Repeat the last macro
@@ -14,6 +16,11 @@ vimp.nnoremap('s', '"_d')
 vimp.nnoremap('<Leader>=', ':w !git diff --no-index -- % -<Return>')
 -- Disable search highlighting
 vimp.nnoremap({'silent'}, '<C-l>', ':nohl<Return>')
+-- Move between windows with gw
+vimp.nnoremap('gwh', '<C-w>h')
+vimp.nnoremap('gwj', '<C-w>j')
+vimp.nnoremap('gwk', '<C-w>k')
+vimp.nnoremap('gwl', '<C-w>l')
 
 -- nvim-luadev
 function register_luadev_mappings()
@@ -31,6 +38,9 @@ vim.cmd [[ autocmd FileType lua lua register_luadev_mappings() ]]
 vim.cmd [[ augroup END ]]
 
 -- neoterm
+vimp.nnoremap({'silent'}, '<Leader>tj', ":<c-u>exec 'bel ' .. v:count .. 'Ttoggle'<CR>")
+vimp.nnoremap({'silent'}, '<Leader>tl', ":<c-u>exec 'vert ' .. v:count .. 'Ttoggle'<CR>")
+vimp.nnoremap({'silent'}, '<Leader>tt', ":<c-u>exec 'tab ' .. v:count . 'Ttoggle'<CR>")
 vimp.inoremap({'silent'}, '<C-s>', '<C-o>:TREPLSendLine<CR>')
 vimp.nmap('<C-s>', '<Plug>(neoterm-repl-send-line)')
 vimp.nmap('<Leader>s', '<Plug>(neoterm-repl-send)')
