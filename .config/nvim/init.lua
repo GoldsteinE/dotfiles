@@ -16,15 +16,11 @@ execute(
 )
 end
 
-local function file(name)
-	require(name)
-end
-
 require('packer').startup(function()
 	-- Package manager itself
 	use 'wbthomason/packer.nvim'
 	-- Lua mappings helper
-	use { 'svermeulen/vimpeccable', config = file('mappings') }
+	use { 'svermeulen/vimpeccable', config = function() require('mappings') end }
 	-- Lua plugins writing helper
 	use 'bfredl/nvim-luadev'
 	-- Dark colorscheme
@@ -54,9 +50,9 @@ require('packer').startup(function()
 	-- Read .editorconfig
 	use 'editorconfig/editorconfig-vim'
 	-- Linters integration
-	use { 'neomake/neomake', config = file('neomake_conf') }
+	use { 'neomake/neomake', config = function() require('neomake_conf') end }
 	-- Status line
-	use { 'itchyny/lightline.vim', config = file('lightline_conf') }
+	use { 'itchyny/lightline.vim', config = function() require('lightline_conf') end }
 	use 'tyru/current-func-info.vim'
 	-- Status line colors
 	use 'sainnhe/lightline_foobar.vim'
@@ -73,7 +69,7 @@ require('packer').startup(function()
 			{'nvim-lua/plenary.nvim'},
 			{'kyazdani42/nvim-web-devicons'}
 		},
-		config = file('telescope_conf'),
+		config = function() require('telescope_conf') end,
 		after = 'vimpeccable',
 	}
 	-- Terminal helper
@@ -128,16 +124,16 @@ require('packer').startup(function()
 	-- Calculate startup time
 	use 'tweekmonster/startuptime.vim'
 	-- Internal NeoVim LSP configuration helper
-	use { 'neovim/nvim-lspconfig', file('lsp_conf') }
+	use { 'neovim/nvim-lspconfig', config = function() require('lsp_conf') end }
 	-- Completion engine
-	use { 'hrsh7th/nvim-compe', config = file('compe_conf') }
+	use { 'hrsh7th/nvim-compe', config = function() require('compe_conf') end }
 	if executable('g++') or executable('clang++') then
 		vim.g.treesitter_enabled = true
 		-- TreeSitter-based syntax highlighting & text objects
 		use {
 			'nvim-treesitter/nvim-treesitter',
 			run = ':TSUpdate',
-			config = file('treesitter_conf'),
+			config = function() require('treesitter_conf') end,
 		}
 		use 'nvim-treesitter/playground'
 	end
