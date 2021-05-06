@@ -45,6 +45,7 @@ require('packer').startup(function()
 			vim.g.tex_flavor = 'latex'
 		end
 	}
+	use 'LnL7/vim-nix'
 	use 'ziglang/zig.vim'
 	use { 'zetzit/vim', as = 'zz.vim' }
 	-- Read .editorconfig

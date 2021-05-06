@@ -85,7 +85,7 @@
     # ranger                # ranger shell (https://github.com/ranger/ranger)
     # nnn                   # nnn shell (https://github.com/jarun/nnn)
     # midnight_commander    # midnight commander shell (https://midnight-commander.org/)
-    # nix_shell             # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
+    nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
     # vpn_ip                # virtual private network indicator
     # load                  # CPU load
     # disk_usage            # disk usage
@@ -710,7 +710,7 @@
   typeset -g POWERLEVEL9K_NIX_SHELL_FOREGROUND=74
 
   # Tip: If you want to see just the icon without "pure" and "impure", uncomment the next line.
-  # typeset -g POWERLEVEL9K_NIX_SHELL_CONTENT_EXPANSION=
+  typeset -g POWERLEVEL9K_NIX_SHELL_CONTENT_EXPANSION=
 
   # Custom icon.
   # typeset -g POWERLEVEL9K_NIX_SHELL_VISUAL_IDENTIFIER_EXPANSION='⭐'
