@@ -1,63 +1,49 @@
--- vim.o/vim.wo/vim.bo helper
-local function setopt(mode, opt, value)
-	vim[mode][opt] = value
-	if mode ~= 'o' then
-		vim.o[opt] = value
-	end
-end
-
--- Fix copying bug on Mac OS
--- Fails if locale isn't installed, so pcall
-pcall(function()
-	vim.cmd [[ language en_US.UTF-8 ]]
-end)
+local o = vim.opt
 
 -- Allow backspace everywhere
-setopt('o', 'backspace', 'indent,eol,start')
+o.backspace = { 'indent', 'eol', 'start' }
 -- Show 100 columns width limit
-setopt('wo', 'colorcolumn', '100')
+o.colorcolumn = { 100 }
 -- Show tab completion window
-setopt('o', 'completeopt', 'menuone,noinsert,noselect')
+o.completeopt = { 'menuone', 'noinsert', 'noselect' }
 -- Invisible split separators
-setopt('wo', 'fillchars', 'vert: ')
+o.fillchars = { vert = ' ' }
 -- Explicit folding
-setopt('wo', 'foldmethod', 'marker')
+o.foldmethod = 'marker'
 -- Enable RGB colors
-setopt('o', 'termguicolors', true)
+o.termguicolors = true
 -- Disable |-like cursor
-setopt('o', 'guicursor', '')
+o.guicursor = { }
 -- Hide abandoned buffers
-setopt('o', 'hidden', true)
+o.hidden = true
 -- Preview s/// changes
-setopt('o', 'inccommand', 'nosplit')
+o.inccommand = 'nosplit'
 -- Ignore case if search string is all-lowercase
-setopt('o', 'ignorecase', true)
-setopt('o', 'smartcase', true)
+o.ignorecase = true
+o.smartcase = true
 -- Read `vim:` modelines
-setopt('bo', 'modeline', true)
+o.modeline = true
 -- Enable mouse support
-setopt('o', 'mouse', 'a')
+o.mouse = 'a'
 -- Do not show `--MODE--` in the bottom line
-setopt('o', 'showmode', false)
+o.showmode = false
 -- Show both line numbers AND relative numbers
-setopt('wo', 'number', true)
-setopt('wo', 'relativenumber', true)
+o.number = true
+o.relativenumber = true
 -- Set tab width to 4
-setopt('bo', 'tabstop', 4)
-setopt('bo', 'shiftwidth', 4)
+o.tabstop = 4
+o.shiftwidth = 4
 -- More intuitive split directions
-setopt('o', 'splitbelow', true)
-setopt('o', 'splitright', true)
+o.splitbelow = true
+o.splitright = true
 -- Allow NeoVim to set terminal title
-setopt('o', 'title', true)
+o.title = true
 -- Enable undo persistence
-setopt('bo', 'undofile', true)
+o.undofile = true
 -- Enable system clipboard integration
 if vim.fn.has('clipboard') ~= 0 then
-	setopt('o', 'clipboard', 'unnamedplus')
+	o.clipboard = 'unnamedplus'
 end
--- Enable filetype handling & filetype-based indentation
-vim.cmd [[ filetype plugin indent on ]]
 -- Tell NeoVim that <Leader> is space
 vim.g.mapleader = ' '
 
