@@ -156,6 +156,7 @@ alias gch='git checkout'
 function ]() {
 	git commit -m "$*"
 }
+alias ]='noglob ]'
 
 function vimhelp() {
 	vim +"help $1 | only"
