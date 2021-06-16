@@ -39,12 +39,6 @@ require('packer').startup(function()
 	use 'elixir-editors/vim-elixir'
 	use 'rust-lang/rust.vim'
 	use 'lifepillar/pgsql.vim'
-	use {
-		'lervag/vimtex',
-		config = function()
-			vim.g.tex_flavor = 'latex'
-		end
-	}
 	use 'LnL7/vim-nix'
 	use 'ziglang/zig.vim'
 	use { 'zetzit/vim', as = 'zz.vim' }
@@ -122,12 +116,14 @@ require('packer').startup(function()
 			]]
 		end
 	}
-	-- Calculate startup time
-	use 'tweekmonster/startuptime.vim'
 	-- Internal NeoVim LSP configuration helper
 	use { 'neovim/nvim-lspconfig', config = function() require('lsp_conf') end }
 	-- Completion engine
-	use { 'hrsh7th/nvim-compe', config = function() require('compe_conf') end }
+	use {
+		'hrsh7th/nvim-compe',
+		config = function() require('compe_conf') end,
+		after = 'vimpeccable'
+	}
 	if executable('g++') or executable('clang++') then
 		vim.g.treesitter_enabled = true
 		-- TreeSitter-based syntax highlighting & text objects
