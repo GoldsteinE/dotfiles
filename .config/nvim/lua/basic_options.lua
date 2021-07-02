@@ -40,10 +40,6 @@ o.splitright = true
 o.title = true
 -- Enable undo persistence
 o.undofile = true
--- Enable system clipboard integration
-if vim.fn.has('clipboard') ~= 0 then
-	o.clipboard = 'unnamedplus'
-end
 -- Tell NeoVim that <Leader> is space
 vim.g.mapleader = ' '
 

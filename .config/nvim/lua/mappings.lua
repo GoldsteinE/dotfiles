@@ -22,6 +22,14 @@ vimp.nnoremap('gwj', '<C-w>j')
 vimp.nnoremap('gwk', '<C-w>k')
 vimp.nnoremap('gwl', '<C-w>l')
 
+-- Copy/paste to/from system clipboard
+if vim.fn.has('clipboard') ~= 0 then
+	vimp.nnoremap('gy', '"+y')
+	vimp.nnoremap('gp', '"+p')
+	vimp.xnoremap('gy', '"+y')
+	vimp.xnoremap('gp', '"+p')
+end
+
 -- nvim-luadev
 function register_luadev_mappings()
 	vimp.add_buffer_maps(function()
