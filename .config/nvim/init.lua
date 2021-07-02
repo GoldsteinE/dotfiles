@@ -42,6 +42,7 @@ require('packer').startup(function()
 	use 'LnL7/vim-nix'
 	use 'ziglang/zig.vim'
 	use { 'zetzit/vim', as = 'zz.vim' }
+	use 'elubow/cql-vim'
 	-- Read .editorconfig
 	use 'editorconfig/editorconfig-vim'
 	-- Linters integration
@@ -86,6 +87,16 @@ require('packer').startup(function()
 	}
 	-- Git helper
 	use 'tpope/vim-fugitive'
+	-- Copy link to Git{Hub,Lab}
+	use {
+		'ruanyl/vim-gh-line',
+		config = function()
+			if executable('xclip') then
+				-- space at the end is important
+				vim.g.gh_open_command = 'c() { echo -n "$@" | xclip -i -selection clipboard }; c '
+			end
+		end
+	}
 	-- Easy HTML typing
 	use {
 		'mattn/emmet-vim',
