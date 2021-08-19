@@ -8,14 +8,10 @@ vimp.tnoremap('jk', '<C-\\><C-N>')
 vimp.xnoremap('&', ':s<Up><Return>')
 -- Repeat the last macro
 vimp.nnoremap('Q', '@@')
--- Make Y work sensibly
-vimp.nnoremap('Y', 'yy')
 -- Repurpose `s` for deletion without clobbering clipboard
 vimp.nnoremap('s', '"_d')
 -- Diff with the file on disk
 vimp.nnoremap('<Leader>=', ':w !git diff --no-index -- % -<Return>')
--- Disable search highlighting
-vimp.nnoremap({'silent'}, '<C-l>', ':nohl<Return>')
 -- Move between windows with gw
 vimp.nnoremap('gwh', '<C-w>h')
 vimp.nnoremap('gwj', '<C-w>j')
