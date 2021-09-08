@@ -39,6 +39,10 @@ if type direnv >/dev/null; then
 	eval "$(direnv hook zsh)"
 fi
 
+if type doas >/dev/null; then
+	alias doasedit='doas env HOME="$HOME" "$EDITOR"'
+fi
+
 ## Add local files to PATH
 PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin
 
