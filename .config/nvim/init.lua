@@ -131,9 +131,16 @@ require('packer').startup(function()
 	use { 'neovim/nvim-lspconfig', config = function() require('lsp_conf') end }
 	-- Completion engine
 	use {
-		'hrsh7th/nvim-compe',
-		config = function() require('compe_conf') end,
-		after = 'vimpeccable'
+		'hrsh7th/nvim-cmp',
+		config = function() require('cmp_conf') end,
+		requires = {
+			'hrsh7th/cmp-nvim-lsp',
+			'hrsh7th/cmp-buffer',
+			'hrsh7th/cmp-path',
+			'hrsh7th/cmp-calc',
+			'hrsh7th/cmp-nvim-lua',
+			'kdheepak/cmp-latex-symbols',
+		},
 	}
 	if executable('g++') or executable('clang++') then
 		vim.g.treesitter_enabled = true
