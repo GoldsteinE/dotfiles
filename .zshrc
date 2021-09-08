@@ -40,7 +40,13 @@ if type direnv >/dev/null; then
 fi
 
 if type doas >/dev/null; then
-	alias doasedit='doas env HOME="$HOME" "$EDITOR"'
+	function doasedit() {
+		doas env HOME="$HOME" "$EDITOR" "$@"
+	}
+
+	function doash() {
+		doas sh -lc "$*"
+	}
 fi
 
 ## Add local files to PATH
