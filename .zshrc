@@ -57,21 +57,10 @@ fpath=( ~/.zcompl "${fpath[@]}" )
 
 ## Variables by default
 [ -z "$PAGER" ] && export PAGER=less
-[ -z "$MANPAGER" ] && export MANPAGER='nvim +Man!'
 if command -v nvim >/dev/null 2>&1; then
-	export EDITOR=nvim
-
-    if command -v nvr >/dev/null 2>&1; then
-        function nvim() {
-            if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-                nvr "$@"
-            else
-                command nvim "$@"
-            fi
-        }
-    fi
+	[ -z "$MANPAGER" ] && export MANPAGER='nvim +Man!'
+	export EDITOR="$HOME/.config/nvim/vim-clientserver-runner"
 else
-	command -v nvim
 	export EDITOR=vim
 fi
 alias vim="$EDITOR"

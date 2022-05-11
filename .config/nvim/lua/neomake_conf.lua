@@ -53,7 +53,7 @@ do
 	end
 	vim.g.neomake_python_enabled_makers = python_makers
 end
-vim.g.neomake_rust_cargo_command = {'+nightly', 'clippy', '-Zunstable-options'}
+vim.g.neomake_rust_enabled_makers = {}
 
 -- Sign column symbols
 vim.g.neomake_error_sign = {

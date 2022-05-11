@@ -1,21 +1,19 @@
 local lspconfig = require 'lspconfig'
 
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+	underline = false,
+    virtual_text = {
+		prefix = '',
+		indent = 2,
+		format = function(diagnostic) return string.format('// %s', diagnostic.message) end,
+    },
+	signs = false,
+	severity_sort = true,
+})
+
 local function capabilities()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities.textDocument.completion.completionItem.snippetSupport = true
-	capabilities.textDocument.completion.completionItem.preselectSupport = true
-	capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-	capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-	capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-	capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-	capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-	capabilities.textDocument.completion.completionItem.resolveSupport = {
-		properties = {
-			'documentation',
-			'detail',
-			'additionalTextEdits',
-		}
-	}
+	return require('cmp_nvim_lsp').update_capabilities(capabilities)
 end
 
 if executable('rust-analyzer') then
@@ -27,14 +25,17 @@ if executable('rust-analyzer') then
 				},
 				completion = {
 					autoimport = {
-						enable = true
-					}
+						enable = true,
+					},
 				},
 				assist = {
 					importMergeBehaviour = "full",
-					importPrefix = "by_crate"
-				}
-			}
+					importPrefix = "by_crate",
+				},
+				experimental = {
+					procAttrMacros = false,
+				},
+			},
 		},
 		capabilities = capabilities(),
 	}
@@ -58,13 +59,8 @@ if executable('gopls') then
 	}
 end
 
--- We use NeoMake for diagnostics, so disable them in nvim-lsp
-vim.lsp.handlers['textDocument/publishDiagnostics'] = function() end
-
-local vimp = require 'vimp'
-
--- And some keybindings
-vimp.nnoremap({'silent'}, '<leader>r', vim.lsp.buf.rename)
-vimp.nnoremap({'silent'}, '<leader>d', vim.lsp.buf.definition)
-vimp.nnoremap({'silent'}, '<leader>D', vim.lsp.buf.implementation)
-vimp.nnoremap({'silent'}, '<leader>k', vim.lsp.buf.hover)
+if executable('typescript-language-server') then
+	lspconfig.tsserver.setup {
+		capabilities = capabilities(),
+	}
+end

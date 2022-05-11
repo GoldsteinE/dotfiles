@@ -1,26 +1,18 @@
--- Helpers for other config parts
-function _G.executable(command)
-	return vim.fn.executable(command) ~= 0
-end
-
--- Basic options
+require 'helpers'
 require 'basic_options'
 
 -- Installing packer.nvim
-local execute = vim.api.nvim_command
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-execute(
-	'!git clone https://github.com/wbthomason/packer.nvim '..install_path
-)
+	packer_bootstrap = fn.system {
+		'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path
+	}
 end
 
 require('packer').startup(function()
 	-- Package manager itself
 	use 'wbthomason/packer.nvim'
-	-- Lua mappings helper
-	use { 'svermeulen/vimpeccable', config = function() require('mappings') end }
 	-- Lua plugins writing helper
 	use 'bfredl/nvim-luadev'
 	-- Dark colorscheme
@@ -32,7 +24,10 @@ require('packer').startup(function()
 	}
 	-- Custom syntaxes
 	use 'vito-c/jq.vim'
-	use 'cespare/vim-toml'
+	use {
+		'cespare/vim-toml',
+		branch = 'main',
+	}
 	use 'ekalinin/Dockerfile.vim'
 	use 'rhysd/vim-llvm'
 	use 'idris-hackers/idris-vim'
@@ -48,25 +43,26 @@ require('packer').startup(function()
 	-- Linters integration
 	use { 'neomake/neomake', config = function() require('neomake_conf') end }
 	-- Status line
-	use { 'itchyny/lightline.vim', config = function() require('lightline_conf') end }
-	use 'tyru/current-func-info.vim'
-	-- Status line colors
-	use 'sainnhe/lightline_foobar.vim'
+	use {
+		'itchyny/lightline.vim',
+		requires = {
+			{'ryanoasis/vim-devicons'},
+			{'sainnhe/lightline_foobar.vim'},
+		},
+		config = function() require('lightline_conf') end
+	}
 	-- Typing helpers
 	use 'tpope/vim-surround'
 	use 'tpope/vim-repeat'
-	-- Filetype icons
-	use 'ryanoasis/vim-devicons'
 	-- Fuzzy finder
 	use {
 		'nvim-telescope/telescope.nvim',
 		requires = {
 			{'nvim-lua/popup.nvim'},
 			{'nvim-lua/plenary.nvim'},
-			{'kyazdani42/nvim-web-devicons'}
+			{'kyazdani42/nvim-web-devicons'},
 		},
 		config = function() require('telescope_conf') end,
-		after = 'vimpeccable',
 	}
 	-- Terminal helper
 	use {
@@ -86,7 +82,12 @@ require('packer').startup(function()
 		end,
 	}
 	-- Git helper
-	use 'tpope/vim-fugitive'
+	use {
+		'tpope/vim-fugitive',
+		config = function()
+			vim.cmd [[ command! Gblame Git blame ]]
+		end
+	}
 	-- Copy link to Git{Hub,Lab}
 	use {
 		'ruanyl/vim-gh-line',
@@ -129,11 +130,29 @@ require('packer').startup(function()
 	}
 	-- Internal NeoVim LSP configuration helper
 	use { 'neovim/nvim-lspconfig', config = function() require('lsp_conf') end }
+	-- UI for LSP
+	use	{
+		'stevearc/dressing.nvim',
+		config = function()
+			require('dressing').setup {
+				input = {
+					-- It's half-transparent for some reason and the colors are ugly
+					enabled = false,
+				}
+			}
+		end
+	}
+	-- LSP progress
+	use {
+		'j-hui/fidget.nvim',
+		config = function() require('fidget').setup{} end
+	}
 	-- Completion engine
 	use {
 		'hrsh7th/nvim-cmp',
 		config = function() require('cmp_conf') end,
 		requires = {
+			'hrsh7th/vim-vsnip',
 			'hrsh7th/cmp-nvim-lsp',
 			'hrsh7th/cmp-buffer',
 			'hrsh7th/cmp-path',
@@ -168,9 +187,19 @@ require('packer').startup(function()
 			end,
 		}
 	end
+
+	if packer_bootstrap then
+		require('packer').sync()
+	end
 end)
 
--- init.lua editing helpers (former S_SELF):
-vim.cmd [[ augroup S_SELF ]]
-vim.cmd [[ autocmd! BufReadPre,FileReadPre init.lua set path+=~/.config/nvim/lua ]]
-vim.cmd [[ augroup END ]]
+require 'mappings'
+
+autocmd('BufReadPre,FileReadPre', {
+	group = augroup('S_SELF'),
+	pattern = 'init.lua',
+	callback = function()
+		vim.opt.path = { vim.fn.getenv('HOME') .. '/.config/nvim/lua' }
+		vim.opt.suffixesadd = { '.lua' }
+	end,
+})

@@ -16,21 +16,17 @@ require('telescope').setup {
 	}
 }
 
-local vimp = require('vimp')
-
-vimp.nnoremap('<leader>f', builtin.find_files)
+map('n', '<leader>f', builtin.find_files)
 -- Not `g` because of ergonomics; `l` means `lines (in all files)`
-vimp.nnoremap('<leader>l', builtin.live_grep)
-vimp.nnoremap('<leader>L', builtin.grep_string)
+map('n', '<leader>l', builtin.live_grep)
+map('n', '<leader>L', builtin.grep_string)
 -- Lines in the current buffer
-vimp.nnoremap('<leader>;', builtin.current_buffer_fuzzy_find)
+map('n', '<leader>;', builtin.current_buffer_fuzzy_find)
 -- Buffers (useful after long go-to-definition chains)
-vimp.nnoremap('<leader>b', builtin.buffers)
+map('n', '<leader>b', builtin.buffers)
 -- LSP references
-vimp.nnoremap('<leader>gr', builtin.lsp_references)
+map('n', '<leader>gr', builtin.lsp_references)
 -- LSP symbols in the current document
-vimp.nnoremap('<leader>gs', builtin.lsp_document_symbols)
+map('n', '<leader>gs', builtin.lsp_document_symbols)
 -- LSP symbols in the project
-vimp.nnoremap('<leader>ws', builtin.lsp_workspace_symbols)
--- LSP code actions under cursor
-vimp.nnoremap('<leader>a', builtin.lsp_code_actions)
+map('n', '<leader>ws', builtin.lsp_workspace_symbols)

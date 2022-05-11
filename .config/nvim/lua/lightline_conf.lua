@@ -15,12 +15,11 @@ vim.g.lightline = {
 	active = {
 		left = {
 			{ 'mode', 'paste' },
-			{ 'readonly', 'filename', 'modified', 'gitbranch', 'current_func' }
+			{ 'readonly', 'filename', 'modified', 'gitbranch' }
 		}
 	},
 	component_function = {
 		gitbranch = 'FugitiveHead',
-		current_func = 'cfi#get_func_name',
 	},
 	component = {
 		filetype = '%{v:lua.lightline_filetype()}',

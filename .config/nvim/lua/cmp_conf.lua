@@ -1,11 +1,17 @@
 local function feed(keys)
-	vim.fn.feedkeys(vim.api.nvim_replace_termcodes(keys, true, true, true), 'y')
+	vim.fn.feedkeys(vim.api.nvim_replace_termcodes(keys, true, true, true), true)
 end
 
 local cmp = require 'cmp'
 cmp.setup {
 	completion = {
 		autocomplete = false
+	},
+	
+	snippet = {
+		expand = function(args)
+			vim.fn['vsnip#anonymous'](args.body)
+		end,
 	},
 
 	sources = {
@@ -22,15 +28,15 @@ cmp.setup {
 		['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
 		['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
 		['<S-Tab>'] = cmp.mapping(function(fallback)
-			if vim.fn.pumvisible() == 1 then
-				feed('<C-p>')
+			if cmp.visible() then
+				cmp.select_prev_item()
 			else
 				fallback()
 			end
 		end, { 'i', 's' }),
 		['<Tab>'] = cmp.mapping(function(fallback)
-			if vim.fn.pumvisible() == 1 then
-				feed('<C-n>')
+			if cmp.visible() then
+				cmp.select_next_item()
 			else
 				local line = vim.fn.getline('.')
 				line = string.sub(line, 1, vim.fn.col('.') - 1)
@@ -41,6 +47,13 @@ cmp.setup {
 				end
 			end
 		end, { 'i', 's' }),
+		['<C-j>'] = cmp.mapping(function(fallback)
+			if vim.fn['vsnip#jumpable'](1) == 1 then
+				feed('<Plug>(vsnip-jump-next)')
+			else
+				fallback()
+			end
+		end),
 		['<CR>'] = cmp.mapping(
 			cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Insert }),
 			{ 'i', 's' }
