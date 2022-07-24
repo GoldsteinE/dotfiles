@@ -68,7 +68,6 @@ alias vim="$EDITOR"
 export SHELL="$(which zsh)"
 export PYTHONSTARTUP=~/.pythonrc
 export haas=/home/goldstein/bin/arcadia/haas
-export TERM="xterm-256color"
 
 ## Enabling history.
 export SAVEHIST=1000

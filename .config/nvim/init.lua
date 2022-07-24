@@ -13,6 +13,8 @@ end
 require('packer').startup(function()
 	-- Package manager itself
 	use 'wbthomason/packer.nvim'
+	-- Fix CursorHold bug in Neovim
+	use 'antoinemadec/FixCursorHold.nvim'
 	-- Lua plugins writing helper
 	use 'bfredl/nvim-luadev'
 	-- Dark colorscheme
@@ -48,12 +50,14 @@ require('packer').startup(function()
 		requires = {
 			{'ryanoasis/vim-devicons'},
 			{'sainnhe/lightline_foobar.vim'},
+			{'nvim-treesitter/nvim-treesitter'},
 		},
 		config = function() require('lightline_conf') end
 	}
 	-- Typing helpers
 	use 'tpope/vim-surround'
 	use 'tpope/vim-repeat'
+	use 'tpope/vim-abolish'
 	-- Fuzzy finder
 	use {
 		'nvim-telescope/telescope.nvim',
@@ -142,10 +146,24 @@ require('packer').startup(function()
 			}
 		end
 	}
+	use {
+		'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
+		config = function()
+			require('lsp_lines').setup()
+		end
+	}
 	-- LSP progress
 	use {
 		'j-hui/fidget.nvim',
 		config = function() require('fidget').setup{} end
+	}
+	-- LSP diagnostics helper
+	use {
+		"folke/trouble.nvim",
+		requires = "kyazdani42/nvim-web-devicons",
+		config = function()
+			require("trouble").setup { }
+		end
 	}
 	-- Completion engine
 	use {
@@ -168,6 +186,9 @@ require('packer').startup(function()
 			'nvim-treesitter/nvim-treesitter',
 			run = ':TSUpdate',
 			config = function() require('treesitter_conf') end,
+			requires = {
+				"p00f/nvim-ts-rainbow",
+			},
 		}
 		use 'nvim-treesitter/playground'
 	end

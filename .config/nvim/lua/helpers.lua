@@ -34,6 +34,6 @@ _G.augroup = function(name, opts)
 	if opts == nil then
 		opts = {}
 	end
-	vim.api.nvim_create_augroup(name, opts)
+	return vim.api.nvim_create_augroup(name, opts)
 end
 _G.autocmd = vim.api.nvim_create_autocmd

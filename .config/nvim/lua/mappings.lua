@@ -77,4 +77,28 @@ map('n', '<leader>d', vim.lsp.buf.definition, { silent = true })
 map('n', '<leader>D', vim.lsp.buf.implementation, { silent = true })
 map('n', '<leader>k', vim.lsp.buf.hover, { silent = true })
 map('n', '<leader>a', vim.lsp.buf.code_action, { silent = true })
+map('n', '<leader>e', '<Cmd>TroubleToggle<CR>')
 map('n', '<leader><space>', function() vim.lsp.buf.format { async = true } end, { silent = true })
+
+function _G.diff(cmd)
+	local old_buf = vim.api.nvim_get_current_buf()
+	local filename = vim.api.nvim_buf_get_name(old_buf)
+	cmd[#cmd + 1] = filename
+	cmd[#cmd + 1] = "/dev/stdin"
+
+	local buf = vim.api.nvim_create_buf(false, true)
+	if buf == 0 then
+		error("failed to create buffer")
+		return
+	end
+	vim.cmd [[ split ]]
+	local win = vim.api.nvim_get_current_win()
+	vim.api.nvim_win_set_buf(win, buf)
+	local channel = vim.fn.termopen(cmd)
+	if channel < 1 then
+		error("failed to termopen()")
+		return
+	end
+	vim.fn.chansend(channel, vim.api.nvim_buf_get_lines(old_buf, 0, -1, false))
+	vim.fn.chanclose(channel, 'stdin')
+end

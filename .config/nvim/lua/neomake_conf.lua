@@ -54,6 +54,7 @@ do
 	vim.g.neomake_python_enabled_makers = python_makers
 end
 vim.g.neomake_rust_enabled_makers = {}
+vim.g.neomake_cpp_enabled_makers = {}
 
 -- Sign column symbols
 vim.g.neomake_error_sign = {
