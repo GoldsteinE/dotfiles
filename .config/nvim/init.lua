@@ -42,8 +42,6 @@ require('packer').startup(function()
 	use 'elubow/cql-vim'
 	-- Read .editorconfig
 	use 'editorconfig/editorconfig-vim'
-	-- Linters integration
-	use { 'neomake/neomake', config = function() require('neomake_conf') end }
 	-- Status line
 	use {
 		'itchyny/lightline.vim',
