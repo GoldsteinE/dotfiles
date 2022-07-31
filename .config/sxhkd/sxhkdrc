@@ -19,6 +19,9 @@ super + shift + {0-9}
 super + shift + alt + {0-9}
 	bspc node focused --to-desktop 1{0-9} --follow
 
+super + Tab
+	bspc desktop --focus "$(bspc query --names -D -d focused | perl -pe 's/.(.)/$1/ || s/^/1/')"
+
 super + a
 	bspc node first_ancestor --rotate 180
 
