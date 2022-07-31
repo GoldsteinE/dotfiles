@@ -1,0 +1,65 @@
+super + {_,shift +}{h,j,k,l}
+	bspc node --{focus,swap} {west,south,north,east}
+
+super + r ; {h,j,k,l}
+	bspc node focused --resize top_left {-100 0,0 100,0 -100,100 0}
+
+super + r ; shift + {h,j,k,l}
+	bspc node focused --resize top_left {-200 0,0 200,0 -200,200 0}
+
+super + {0-9}
+	bspc desktop --focus {0-9}
+
+super + alt + {0-9}
+	bspc desktop --focus 1{0-9}
+
+super + shift + {0-9}
+	bspc node focused --to-desktop {0-9} --follow
+
+super + shift + alt + {0-9}
+	bspc node focused --to-desktop 1{0-9} --follow
+
+super + a
+	bspc node first_ancestor --rotate 180
+
+super + z
+	bspc node first_ancestor --rotate 90
+
+super + shift + z
+	bspc node first_ancestor --rotate 270
+
+super + shift + q
+	bspc node focused --kill
+
+super + shift + space
+	bspc node focused --state ~floating
+
+super + f
+	bspc node focused --state ~fullscreen
+
+super + alt + z
+	xsecurelock
+
+super + shift + c
+	kill -USR1 "$(pidof sxhkd)"
+
+super + alt + r
+	kill -USR1 "$(pidof sxhkd)"; sh ~/.config/bspwm/bspwmrc
+
+super + Return
+	alacritty
+
+super + d
+	sh ~/.config/rofi/launchers/misc/launcher.sh
+
+{XF86AudioRaiseVolume,XF86AudioLowerVolume,XF86AudioMute,XF86AudioPlay,XF86AudioPrev,XF86AudioNext,XF86MonBrightnessDown,XF86MonBrightnessUp}
+	~/.local/bin/vctl {up,down,mutetoggle,play_pause,previous,next,light_down,light_up}
+
+super + {Up,Left,Right}
+	~/.local/bin/vctl {play_pause,previous,next}
+
+Print 
+	bash -o pipefail -c '( maim -sb 3 -c 0.4,0.85,0.93 -f png | xclip -i -selection clipboard -target image/png ) && notify-send "Copied image to clipboard"'
+
+control + space
+	wired --drop latest
