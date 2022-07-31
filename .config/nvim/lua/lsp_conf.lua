@@ -32,6 +32,9 @@ if executable('rust-analyzer') then
 						enable = true,
 					},
 				},
+				checkOnSave = {
+					command = "clippy",
+				},
 				assist = {
 					importMergeBehaviour = "crate",
 					importPrefix = "by_crate",
@@ -84,4 +87,10 @@ if executable('haskell-language-server') then
 			capabilities = capabilities(),
 		}
 	end
+end
+
+if executable('rnix-lsp') then
+	lspconfig.rnix.setup {
+		capabilities = capabilities(),
+	}
 end
