@@ -1,11 +1,11 @@
 super + {_,shift +}{h,j,k,l}
 	bspc node --{focus,swap} {west,south,north,east}
 
-super + r ; {h,j,k,l}
-	bspc node focused --resize top_left {-100 0,0 100,0 -100,100 0}
+super + {equal,minus}
+	bspc node first_ancestor --ratio {+,-}0.05
 
-super + r ; shift + {h,j,k,l}
-	bspc node focused --resize top_left {-200 0,0 200,0 -200,200 0}
+super + shift + {equal,minus}
+	bspc node 'first_ancestor#first_ancestor' --ratio {+,-}0.05
 
 super + {0-9}
 	bspc desktop --focus {0-9}
@@ -23,7 +23,7 @@ super + Tab
 	bspc desktop --focus "$(bspc query --names -D -d focused | perl -pe 's/.(.)/$1/ || s/^/1/')"
 
 super + shift + Tab
-	bspc node focused --to-desktop "$(bspc query --names -D -d focused | perl -pe 's/.(.)/$1/ || s/^/1/')"
+	bspc node focused --to-desktop "$(bspc query --names -D -d focused | perl -pe 's/.(.)/$1/ || s/^/1/')" --follow
 
 super + a
 	bspc node first_ancestor --rotate 180
