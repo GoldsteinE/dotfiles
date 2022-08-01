@@ -7,17 +7,17 @@ super + {equal,minus}
 super + shift + {equal,minus}
 	bspc node 'first_ancestor#first_ancestor' --ratio {+,-}0.05
 
-super + {0-9}
-	bspc desktop --focus {0-9}
+super + {1-8}
+	bspc desktop --focus {1-8}
 
-super + alt + {0-9}
-	bspc desktop --focus 1{0-9}
+super + alt + {1-8}
+	bspc desktop --focus 1{1-8}
 
-super + shift + {0-9}
-	bspc node focused --to-desktop {0-9} --follow
+super + shift + {1-8}
+	bspc node focused --to-desktop {1-8} --follow
 
-super + shift + alt + {0-9}
-	bspc node focused --to-desktop 1{0-9} --follow
+super + shift + alt + {1-8}
+	bspc node focused --to-desktop 1{1-8} --follow
 
 super + Tab
 	bspc desktop --focus "$(bspc query --names -D -d focused | perl -pe 's/.(.)/$1/ || s/^/1/')"

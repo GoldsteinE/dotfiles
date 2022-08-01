@@ -20,6 +20,9 @@ modules-left = bspwm
 modules-right = temperature layout battery date
 height = 54
 
+override-redirect = true
+wm-restack = bspwm
+
 [bar/top]
 monitor = ${env:POLYBAR_MONITOR:}
 font-0 = NotoSans-Regular:size=28;2
@@ -34,6 +37,9 @@ modules-right = network vpn
 padding-right = 4
 module-margin = 2
 height = 54
+
+override-redirect = true
+wm-restack = bspwm
 
 [module/title]
 type = internal/xwindow
@@ -95,12 +101,8 @@ ws-icon-10 = 6;
 ws-icon-11 = 16;
 ws-icon-12 = 7;
 ws-icon-13 = 17;
-ws-icon-14 = 8;8
-ws-icon-15 = 18;∞
-ws-icon-16 = 9;
-ws-icon-17 = 19;19
-ws-icon-18 = 0;
-ws-icon-19 = 10;10
+ws-icon-14 = 8;
+ws-icon-15 = 18;
 
 [module/date]
 type = internal/date
