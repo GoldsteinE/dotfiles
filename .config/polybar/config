@@ -17,7 +17,7 @@ font-3 = Font Awesome 6 Free Solid:pixelsize=32;7
 font-4 = Font Awesome 6 Brands:pixelsize=32;7
 
 modules-left = bspwm
-modules-right = temperature layout battery date
+modules-right = gh temperature layout battery date
 height = 54
 
 override-redirect = true
@@ -155,4 +155,13 @@ warn-temperature = 70
 label =   %temperature-c%
 label-warn =   %temperature-c%
 label-warn-foreground = #e64b0e 
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input
+thermal-zone = 10
+
+[module/gh]
+type = internal/github
+token = "${env:GITHUB_ACCESS_TOKEN}"
+user = GoldsteinE
+empty-notifications = false
+interval = 60
+label =  %notifications%
+format-offline =
