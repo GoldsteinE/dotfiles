@@ -24,9 +24,19 @@ map('n', '<leader>L', builtin.grep_string)
 map('n', '<leader>;', builtin.current_buffer_fuzzy_find)
 -- Buffers (useful after long go-to-definition chains)
 map('n', '<leader>b', builtin.buffers)
+-- LSP definitions
+map('n', '<leader>d', builtin.lsp_definitions)
+-- LSP implementations
+map('n', '<leader>D', builtin.lsp_implementations)
+-- LSP type definitions
+map('n', '<leader>td', builtin.lsp_type_definitions)
 -- LSP references
 map('n', '<leader>gr', builtin.lsp_references)
 -- LSP symbols in the current document
 map('n', '<leader>gs', builtin.lsp_document_symbols)
 -- LSP symbols in the project
 map('n', '<leader>ws', builtin.lsp_workspace_symbols)
+-- LSP diagnostics in current buffer
+map('n', '<leader>e', function() builtin.diagnostics { bufnr = 0 } end)
+-- All LSP diagnostics
+map('n', '<leader>E', builtin.diagnostics)

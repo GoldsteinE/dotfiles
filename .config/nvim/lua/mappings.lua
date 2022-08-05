@@ -73,11 +73,8 @@ map('s', '<M-l>', '<Plug>(vsnip-jump-next)', { re = true })
 
 -- LSP
 map('n', '<leader>r', vim.lsp.buf.rename, { silent = true })
-map('n', '<leader>d', vim.lsp.buf.definition, { silent = true })
-map('n', '<leader>D', vim.lsp.buf.implementation, { silent = true })
 map('n', '<leader>k', vim.lsp.buf.hover, { silent = true })
 map('n', '<leader>a', vim.lsp.buf.code_action, { silent = true })
-map('n', '<leader>e', '<Cmd>TroubleToggle<CR>')
 map('n', '<leader><space>', function() vim.lsp.buf.format { async = true } end, { silent = true })
 
 function _G.diff(cmd)

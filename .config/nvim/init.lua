@@ -156,14 +156,6 @@ require('packer').startup(function()
 		'j-hui/fidget.nvim',
 		config = function() require('fidget').setup{} end
 	}
-	-- LSP diagnostics helper
-	use {
-		"folke/trouble.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
-		config = function()
-			require("trouble").setup { }
-		end
-	}
 	-- Completion engine
 	use {
 		'hrsh7th/nvim-cmp',

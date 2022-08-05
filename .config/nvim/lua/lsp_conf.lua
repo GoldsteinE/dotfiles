@@ -39,9 +39,6 @@ if executable('rust-analyzer') then
 					importMergeBehaviour = "crate",
 					importPrefix = "by_crate",
 				},
-				experimental = {
-					procAttrMacros = false,
-				},
 			},
 		},
 		capabilities = capabilities(),
