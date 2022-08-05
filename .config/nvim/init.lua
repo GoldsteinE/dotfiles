@@ -67,6 +67,7 @@ require('packer').startup(function()
 		},
 		config = function() require('telescope_conf') end,
 	}
+	use 'nvim-telescope/telescope-symbols.nvim'
 	-- Terminal helper
 	use {
 		'kassio/neoterm',

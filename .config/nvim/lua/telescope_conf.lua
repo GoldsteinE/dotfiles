@@ -24,6 +24,8 @@ map('n', '<leader>L', builtin.grep_string)
 map('n', '<leader>;', builtin.current_buffer_fuzzy_find)
 -- Buffers (useful after long go-to-definition chains)
 map('n', '<leader>b', builtin.buffers)
+-- LaTeX symbols
+map('i', '<c-x>', function() builtin.symbols { sources = {'math'} } end)
 -- LSP definitions
 map('n', '<leader>d', builtin.lsp_definitions)
 -- LSP implementations
