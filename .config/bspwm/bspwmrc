@@ -13,7 +13,7 @@ c window_gap 20
 
 bspc monitor -d {1,11,2,12,3,13,4,14,5,15,6,16,7,17,8,18}
 
-for service in wired espanso; do
+for service in wired espanso yubikey-touch-detector.service; do
 	systemctl --user start "$service"
 done
 
