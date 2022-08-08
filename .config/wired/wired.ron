@@ -35,7 +35,7 @@
 			hook: (parent_anchor: TR, self_anchor: TR),
 			params: TextBlock((
 				text: "%s",
-				padding: (left: 48.0, right: 18.0, top: 28.0, bottom: 12.0),
+				padding: (left: 48.0, right: 18.0, top: 28.0, bottom: 24.0),
 				font: "Dejavu Sans 36",
 				color: Color(hex: "#f8f8f2"),
 				dimensions: (
@@ -72,7 +72,7 @@
 			render_anti_criteria: [ AppName("progress") ],
 			params: ScrollingTextBlock((
 				text: "%b",
-				padding: (left: 48.0, right: 18.0, top: 0.0, bottom: 30.0),
+				padding: (left: 48.0, right: 18.0, top: -12.0, bottom: 30.0),
 				font: "DejaVu Sans 36",
 				color: (hex: "#f8f8f2"),
 				scroll_speed: 0.1,
