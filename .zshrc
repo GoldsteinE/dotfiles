@@ -58,6 +58,14 @@ else
 fi
 alias vim="$EDITOR"
 [ -z "$SUDO_PROMPT" ] && export SUDO_PROMPT="Enter password: "
+alias hub='GITHUB_TOKEN="$(pass show github-token-hub)" hub'
+function cargo() {
+	if [ "$1" = "publish" ]; then
+		env CARGO_REGISTRY_TOKEN="$(pass show crates-io)" cargo "$@"
+	else
+		command cargo "$@"
+	fi
+}
 
 ## Enabling history.
 setopt histignorealldups
