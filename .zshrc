@@ -35,10 +35,6 @@ load_module zsh-users zsh-autosuggestions zsh
 load_module zsh-users zsh-syntax-highlighting zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-if type direnv >/dev/null; then
-	eval "$(direnv hook zsh)"
-fi
-
 if type doas >/dev/null; then
 	function doasedit() {
 		doas env HOME="$HOME" "$EDITOR" "$@"
@@ -52,9 +48,6 @@ fi
 ## Add local files to PATH
 PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin
 
-## Add completion functions to fpath
-fpath=( ~/.zcompl "${fpath[@]}" )
-
 ## Variables by default
 [ -z "$PAGER" ] && export PAGER=less
 if command -v nvim >/dev/null 2>&1; then
@@ -65,13 +58,8 @@ else
 fi
 alias vim="$EDITOR"
 [ -z "$SUDO_PROMPT" ] && export SUDO_PROMPT="Enter password: "
-export SHELL="$(which zsh)"
-export PYTHONSTARTUP=~/.pythonrc
-export haas=/home/goldstein/bin/arcadia/haas
 
 ## Enabling history.
-export SAVEHIST=1000
-export HISTFILE=~/.zhistory
 setopt histignorealldups
 setopt histignorespace
 setopt histreduceblanks
@@ -127,18 +115,13 @@ esac
 
 
 ## Aliases.
-alias colordiff=~/bin/colordiff
-
-alias reload-shell="exec /proc/self/exe --login"
 alias ls="LC_COLLATE=C ls --color=auto -hF --group-directories-first"
 alias la="ls -A"
 alias ll="ls -Al"
 alias fucking=sudo
 alias LS=sl
-alias pacman="pacman --color=auto"
 alias less="less -M"
 alias fuck='sudo $(history -1 | sed "s/^\s*[0-9]*\s*//" -)'
-alias RM='shred -fzun 7'
 
 ## Git aliases
 alias ga='git add'
@@ -156,10 +139,6 @@ function ]() {
 }
 alias ]='noglob ]'
 
-function vimhelp() {
-	vim +"help $1 | only"
-}
-
 ## Enables 'cd -$n' command.
 setopt autopushd
 setopt pushdminus
@@ -168,29 +147,7 @@ setopt pushdsilent
 alias cd="cd >/dev/null"
 
 ## Commands options
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
- --color=fg:#f8f8f2,bg:#1d1f21,hl:#92c5f7
- --color=fg+:#f8f8f2,bg+:#293739,hl+:#92c5f7
- --color=info:#dad085,prompt:#89807d,pointer:#92c5f7
- --color=marker:#99cc99,spinner:#92c5f7,header:#a8ff60'
-
-function ssh() {
-	if [ "$#" -ne "0" ]; then
-		command ssh "$@"
-	else
-		tmp_ssh_hostname="$({
-			awk -F'[ ,:]' '/^[0-9a-zA-Z]/{sub(/\[/,"",$1); sub(/\]/,"",$1); print $1}' ~/.ssh/known_hosts
-			cat ~/.ssh/config | grep -oP '^Host\s+\K[^*]$'
-		} | fzf --height=30% --layout=reverse)"
-		if [ -n "$ZSH_VERSION" ]; then
-			print -s "ssh $tmp_ssh_hostname"
-		else
-			history -s "ssh $tmp_ssh_hostname"
-		fi
-		ssh $tmp_ssh_hostname
-	fi
-}
-
+#
 ## Key bindings.
 bindkey -e
 typeset -A key
@@ -235,8 +192,3 @@ ctrl-z-fg() {
 }
 zle -N ctrl-z-fg
 bindkey '^Z' ctrl-z-fg
-
-## Source local config
-if [ -f "$HOME/.local.zsh" ]; then
-	source "$HOME/.local.zsh"
-fi
