@@ -39,6 +39,6 @@ map('n', '<leader>gs', builtin.lsp_document_symbols)
 -- LSP symbols in the project
 map('n', '<leader>ws', builtin.lsp_workspace_symbols)
 -- LSP diagnostics in current buffer
-map('n', '<leader>e', function() builtin.diagnostics { bufnr = 0 } end)
+map('n', '<leader>e', function() builtin.diagnostics { bufnr = 0, severity_limit = "WARN" } end)
 -- All LSP diagnostics
-map('n', '<leader>E', builtin.diagnostics)
+map('n', '<leader>E', function() builtin.diagnostics { severity_limit = "WARN" } end)
