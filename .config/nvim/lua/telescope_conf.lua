@@ -16,6 +16,7 @@ require('telescope').setup {
 	}
 }
 
+local map = vim.keymap.set
 map('n', '<leader>f', builtin.find_files)
 -- Not `g` because of ergonomics; `l` means `lines (in all files)`
 map('n', '<leader>l', builtin.live_grep)

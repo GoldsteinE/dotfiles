@@ -1,3 +1,5 @@
+local map = vim.keymap.set
+
 -- Exit insert mode with `jk`
 map('i', 'jk', '<Esc>')
 -- Do the same in terminal mode
@@ -27,18 +29,16 @@ end)
 
 -- Copy/paste to/from system clipboard
 if vim.fn.has('clipboard') ~= 0 then
-	map('n', 'gy', '"+y')
-	map('n', 'gp', '"+p')
-	map('x', 'gy', '"+y')
-	map('x', 'gp', '"+p')
+	map({'n', 'x'}, 'gy', '"+y')
+	map({'n', 'x'}, 'gp', '"+p')
 end
 
 -- nvim-luadev
 local function register_luadev_mappings()
-	bufmap(0, 'n', '<Leader>ll', ':Luadev<CR>', { re = true, silent = true })
-	bufmap(0, 'n', '<Leader>lr', '<Plug>(Luadev-RunLine)', { re = true })
-	bufmap(0, 'x', '<Leader>lr', '<Plug>(Luadev-Run)', { re = true })
-	bufmap(0, 'x', '<Leader>lw', '<Plug>(Luadev-RunWord)', { re = true })
+	map(0, 'n', '<Leader>ll', ':Luadev<CR>', { remap = true, silent = true, buffer = 0 })
+	map(0, 'n', '<Leader>lr', '<Plug>(Luadev-RunLine)', { remap = true, buffer = 0 })
+	map(0, 'x', '<Leader>lr', '<Plug>(Luadev-Run)', { remap = true, buffer = 0 })
+	map(0, 'x', '<Leader>lw', '<Plug>(Luadev-RunWord)', { remap = true, buffer = 0 })
 end
 
 autocmd('FileType', {
@@ -58,18 +58,14 @@ map('n', '<Leader>tj', function() vim.fn.execute('bel ' .. vim.v.count ..' Ttogg
 map('n', '<Leader>tl', function() vim.fn.execute('vert ' .. vim.v.count ..' Ttoggle') end)
 map('n', '<Leader>tt', function() vim.fn.execute('tab ' .. vim.v.count ..' Ttoggle') end)
 map('i', '<C-s>', '<C-o><Cmd>TREPLSendLine<CR>', { silent = true })
-map('n', '<C-s>', '<Plug>(neoterm-repl-send-line)', { re = true })
-map('n', '<Leader>s', '<Plug>(neoterm-repl-send)', { re = true })
-map('x', '<Leader>s', '<Plug>(neoterm-repl-send)', { re = true })
-map('x', '<C-s>', '<Plug>(neoterm-repl-send)', { re = true })
+map('n', '<C-s>', '<Plug>(neoterm-repl-send-line)', { remap = true })
+map({'n', 'x'}, '<Leader>s', '<Plug>(neoterm-repl-send)', { remap = true })
+map('x', '<C-s>', '<Plug>(neoterm-repl-send)', { remap = true })
 
 -- vsnip
-map('i', '<M-Tab>', '<Plug>(vsnip-jump-next)', { re = true })
-map('s', '<M-Tab>', '<Plug>(vsnip-jump-next)', { re = true })
-map('i', '<M-l>', '<Plug>(vsnip-jump-next)', { re = true })
-map('s', '<M-h>', '<Plug>(vsnip-jump-prev)', { re = true })
-map('i', '<M-h>', '<Plug>(vsnip-jump-prev)', { re = true })
-map('s', '<M-l>', '<Plug>(vsnip-jump-next)', { re = true })
+map({'i', 's'}, '<M-Tab>', '<Plug>(vsnip-jump-next)', { remap = true })
+map({'i', 's'}, '<M-l>', '<Plug>(vsnip-jump-next)', { remap = true })
+map({'i', 's'}, '<M-h>', '<Plug>(vsnip-jump-prev)', { remap = true })
 
 -- LSP
 map('n', '<leader>r', vim.lsp.buf.rename, { silent = true })
