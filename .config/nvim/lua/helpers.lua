@@ -2,7 +2,7 @@ function _G.executable(command)
 	return vim.fn.executable(command) ~= 0
 end
 
-local function _G.augroup = function(name, opts)
+function _G.augroup(name, opts)
 	if opts == nil then
 		opts = {}
 	end
