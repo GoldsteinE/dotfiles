@@ -104,18 +104,6 @@ use {
 		vim.g.user_emmet_expandabbr_key = '<C-y>y'
 	end,
 }
--- Highlight current word
-use {
-	'RRethy/vim-illuminate',
-	config = function()
-		vim.g.Illuminate_delay = 50
-		vim.g.Illuminate_ftHighlightGroups = {
-			['python:blacklist'] = {
-				'pythonInclude', 'pythonStatement', 'pythonAsync'
-			}
-		}
-	end,
-}
 -- Start page
 use {
 	'mhinz/vim-startify',
