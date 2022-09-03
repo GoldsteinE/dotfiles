@@ -2,10 +2,11 @@ require 'nvim-treesitter.configs'.setup {
 	ensure_installed = { "rust", "c", "cpp", "python", "toml", "query", "lua", "haskell" },
 	highlight = {
 		enable = true,
-		custom_captures = {
-			["include"] = "Keyword",
-			["attribute_item.meta_item.identifier"] = "PreProc"
-		}
+		-- Broken, waiting for https://github.com/nvim-telescope/telescope.nvim/issues/2155
+		-- custom_captures = {
+		-- 	["include"] = "Keyword",
+		-- 	["attribute_item.meta_item.identifier"] = "PreProc"
+		-- }
 	},
 	playground = {
 		enable = true
