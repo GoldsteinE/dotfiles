@@ -35,10 +35,10 @@ end
 
 -- nvim-luadev
 local function register_luadev_mappings()
-	map(0, 'n', '<Leader>ll', ':Luadev<CR>', { remap = true, silent = true, buffer = 0 })
-	map(0, 'n', '<Leader>lr', '<Plug>(Luadev-RunLine)', { remap = true, buffer = 0 })
-	map(0, 'x', '<Leader>lr', '<Plug>(Luadev-Run)', { remap = true, buffer = 0 })
-	map(0, 'x', '<Leader>lw', '<Plug>(Luadev-RunWord)', { remap = true, buffer = 0 })
+	map('n', '<Leader>ll', ':Luadev<CR>', { remap = true, silent = true, buffer = 0 })
+	map('n', '<Leader>lr', '<Plug>(Luadev-RunLine)', { remap = true, buffer = 0 })
+	map('x', '<Leader>lr', '<Plug>(Luadev-Run)', { remap = true, buffer = 0 })
+	map('x', '<Leader>lw', '<Plug>(Luadev-RunWord)', { remap = true, buffer = 0 })
 end
 
 autocmd('FileType', {
