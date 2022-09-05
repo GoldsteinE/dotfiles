@@ -97,6 +97,7 @@ use {
 		vim.cmd [[ command! Gblame Git blame ]]
 	end
 }
+use 'shumphrey/fugitive-gitlab.vim'
 -- Easy HTML typing
 use {
 	'mattn/emmet-vim',
@@ -117,18 +118,7 @@ use {
 }
 -- Internal NeoVim LSP configuration helper
 use { 'neovim/nvim-lspconfig', config = function() require('lsp_conf') end }
--- UI for LSP
-use	{
-	'stevearc/dressing.nvim',
-	config = function()
-		require('dressing').setup {
-			input = {
-				-- It's half-transparent for some reason and the colors are ugly
-				enabled = false,
-			}
-		}
-	end
-}
+-- Pretty LSP diagnostics
 use {
 	'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
 	config = function()
