@@ -46,6 +46,7 @@ use 'ziglang/zig.vim'
 use { 'zetzit/vim', as = 'zz.vim' }
 use 'elubow/cql-vim'
 use 'baskerville/vim-sxhkdrc'
+use 'BeneCollyridam/futhark-vim'
 -- Read .editorconfig
 use 'editorconfig/editorconfig-vim'
 -- Status line
