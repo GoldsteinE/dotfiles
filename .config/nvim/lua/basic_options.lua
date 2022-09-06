@@ -33,6 +33,9 @@ o.relativenumber = true
 -- Set tab width to 4
 o.tabstop = 4
 o.shiftwidth = 4
+-- Display tabs
+o.listchars = { tab = '| ' }
+o.list = true
 -- More intuitive split directions
 o.splitbelow = true
 o.splitright = true
