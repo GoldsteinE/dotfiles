@@ -119,6 +119,22 @@ use {
 }
 -- Internal NeoVim LSP configuration helper
 use { 'neovim/nvim-lspconfig', config = function() require('lsp_conf') end }
+-- LSP stub for non-LS languages
+use {
+	'jose-elias-alvarez/null-ls.nvim',
+	requires = {
+		{'nvim-lua/plenary.nvim'},
+	},
+	config = function()
+		local null_ls = require 'null-ls'
+		null_ls.setup {
+			sources = {
+				null_ls.builtins.diagnostics.shellcheck,
+				null_ls.builtins.code_actions.shellcheck,
+			}
+		}
+	end
+}
 -- Pretty LSP diagnostics
 use {
 	'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
