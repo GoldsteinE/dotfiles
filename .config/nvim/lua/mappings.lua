@@ -16,7 +16,7 @@ map('n', 'gwj', '<C-w>j')
 map('n', 'gwk', '<C-w>k')
 map('n', 'gwl', '<C-w>l')
 -- Open a new tab at the same place
-map('n', '<Leader>t', '<Cmd>tab spl<CR>')
+map('n', '<Leader>T', '<Cmd>tab spl<CR>')
 -- Exit
 map('n', '<Leader>q', function()
 	if vim.opt.buftype:get() == 'terminal' then
