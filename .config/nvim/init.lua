@@ -127,24 +127,16 @@ use {
 	},
 	config = function()
 		local null_ls = require 'null-ls'
+		local sources = {}
+		if executable('shellcheck') == 1 then
+			table.insert(sources, null_ls.builtins.diagnostics.shellcheck)
+			table.insert(sources, null_ls.builtins.code_actions.shellcheck)
+		end
+		if executable('jq') == 1 then
+			table.insert(sources, null_ls.builtins.formatting.jq)
+		end
 		null_ls.setup {
-			sources = {
-				null_ls.builtins.diagnostics.shellcheck.with {
-					runtime_condition = function()
-						return vim.fn.executable('shellcheck') == 1
-					end
-				},
-				null_ls.builtins.code_actions.shellcheck.with {
-					runtime_condition = function()
-						return vim.fn.executable('shellcheck') == 1
-					end
-				},
-				null_ls.builtins.formatting.jq.with {
-					runtime_condition = function()
-						return vim.fn.executable('jq') == 1
-					end,
-				},
-			}
+			sources = sources,
 		}
 	end
 }
