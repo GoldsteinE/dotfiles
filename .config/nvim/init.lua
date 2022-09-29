@@ -174,6 +174,8 @@ use {
 		'kdheepak/cmp-latex-symbols',
 	},
 }
+-- jq integration
+use 'gennaro-tedesco/nvim-jqx'
 -- GPG
 use 'jamessan/vim-gnupg'
 if executable('g++') or executable('clang++') then
