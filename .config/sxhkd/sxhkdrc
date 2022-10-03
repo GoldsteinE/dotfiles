@@ -1,6 +1,9 @@
 super + {_,shift +}{h,j,k,l}
 	bspc node --{focus,swap} {west,south,north,east}
 
+super + alt + {h,j,k,l}
+	bspc desktop focused --to-monitor {west,south,north,east}
+
 super + {equal,minus}
 	bspc node first_ancestor --ratio {+,-}0.05
 
