@@ -47,7 +47,7 @@ super + f
 	bspc node focused --state '~fullscreen'
 
 super + alt + z
-	xsecurelock
+	slock
 
 super + shift + c
 	kill -USR1 "$(pidof sxhkd)"
