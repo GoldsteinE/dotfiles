@@ -169,7 +169,10 @@ use {
 		},
 	} end,
 }
-use 'smjonas/inc-rename.nvim'
+use {
+	'smjonas/inc-rename.nvim',
+	config = function() require('inc_rename').setup{} end,
+}
 -- Completion engine
 use {
 	'hrsh7th/nvim-cmp',
