@@ -70,7 +70,7 @@ map({'i', 's'}, '<M-l>', '<Plug>(vsnip-jump-next)', { remap = true })
 map({'i', 's'}, '<M-h>', '<Plug>(vsnip-jump-prev)', { remap = true })
 
 -- LSP
-map('n', '<leader>r', vim.lsp.buf.rename, { silent = true })
+map('n', '<leader>r', ':IncRename ', { silent = true })
 map('n', '<leader>k', vim.lsp.buf.hover, { silent = true })
 map('n', '<leader>a', vim.lsp.buf.code_action, { silent = true })
 map('n', '<leader><space>', function() vim.lsp.buf.format { async = true } end, { silent = true })

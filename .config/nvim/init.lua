@@ -160,6 +160,16 @@ use {
 	'j-hui/fidget.nvim',
 	config = function() require('fidget').setup{} end
 }
+-- LSP UI
+use {
+	'stevearc/dressing.nvim',
+	config = function() require('dressing').setup {
+		input = {
+			enabled = false,
+		},
+	} end,
+}
+use 'smjonas/inc-rename.nvim'
 -- Completion engine
 use {
 	'hrsh7th/nvim-cmp',
